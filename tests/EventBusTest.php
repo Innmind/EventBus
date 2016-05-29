@@ -19,7 +19,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
     {
         $eb = new EventBus(
             (new Map('string', SetInterface::class))
-                ->put('foo', new Set('object'))
+                ->put('foo', new Set('callable'))
         );
 
         $this->assertInstanceOf(EventBusInterface::class, $eb);
@@ -40,7 +40,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
     {
         new EventBus(
             (new Map('string', SetInterface::class))
-                ->put('foo', new Set('callable'))
+                ->put('foo', new Set('object'))
         );
     }
 
@@ -53,7 +53,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
             (new Map('string', SetInterface::class))
                 ->put(
                     $eventClass,
-                    (new Set('object'))
+                    (new Set('callable'))
                         ->add(
                             new class($count)
                             {
@@ -85,7 +85,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
             (new Map('string', SetInterface::class))
                 ->put(
                     $eventClass,
-                    (new Set('object'))
+                    (new Set('callable'))
                         ->add(
                             new class($count, $this)
                             {
@@ -108,7 +108,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
                 )
                 ->put(
                     'stdClass',
-                    (new Set('object'))
+                    (new Set('callable'))
                         ->add(
                             new class($count)
                             {
@@ -140,7 +140,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
             (new Map('string', SetInterface::class))
                 ->put(
                     'stdClass',
-                    (new Set('object'))
+                    (new Set('callable'))
                         ->add(
                             new class($count)
                             {
@@ -174,7 +174,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
             (new Map('string', SetInterface::class))
                 ->put(
                     'IteratorAggregate',
-                    (new Set('object'))
+                    (new Set('callable'))
                         ->add(
                             new class($count)
                             {

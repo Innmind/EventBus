@@ -27,7 +27,7 @@ final class EventBus implements EventBusInterface
         }
 
         $listeners->foreach(function (string $name, SetInterface $listeners) {
-            if ((string) $listeners->type() !== 'object') {
+            if ((string) $listeners->type() !== 'callable') {
                 throw new InvalidArgumentException;
             }
         });
