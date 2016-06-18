@@ -5,7 +5,7 @@ namespace Innmind\EventBus;
 
 use Innmind\Immutable\SequenceInterface;
 
-interface ContainsRecordedEvents
+interface ContainsRecordedEventsInterface
 {
     /**
      * @return SequenceInterface

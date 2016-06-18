@@ -5,7 +5,7 @@ namespace Tests\Innmind\EventBus;
 
 use Innmind\EventBus\{
     EventRecorder,
-    ContainsRecordedEvents
+    ContainsRecordedEventsInterface
 };
 use Innmind\Immutable\SequenceInterface;
 
@@ -13,7 +13,7 @@ class EventRecorderTest extends \PHPUnit_Framework_TestCase
 {
     public function testInterface()
     {
-        $recorder = new class($this) implements ContainsRecordedEvents
+        $recorder = new class($this) implements ContainsRecordedEventsInterface
         {
             use EventRecorder;
 
@@ -46,7 +46,7 @@ class EventRecorderTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowWhenNotUsingAnObjectWhenRecordingAnEvent()
     {
-        $recorder = new class implements ContainsRecordedEvents
+        $recorder = new class implements ContainsRecordedEventsInterface
         {
             use EventRecorder;
 
