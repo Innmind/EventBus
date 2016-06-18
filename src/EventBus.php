@@ -14,8 +14,6 @@ use Innmind\Immutable\{
 final class EventBus implements EventBusInterface
 {
     private $listeners;
-    private $eventQueue;
-    private $inDispatch = false;
 
     public function __construct(MapInterface $listeners)
     {
@@ -33,7 +31,6 @@ final class EventBus implements EventBusInterface
         });
 
         $this->listeners = $listeners;
-        $this->eventQueue = new Sequence;
     }
 
     /**
@@ -45,15 +42,7 @@ final class EventBus implements EventBusInterface
             throw new InvalidArgumentException;
         }
 
-        if ($this->inDispatch === true) {
-            $this->eventQueue = $this->eventQueue->add($event);
-
-            return $this;
-        }
-
-        $this->inDispatch = true;
         $classes = $this->classesFor($event);
-
         $classes->foreach(function (string $class) use ($event) {
             if ($this->listeners->contains($class)) {
                 $this
@@ -64,14 +53,6 @@ final class EventBus implements EventBusInterface
                     });
             }
         });
-
-        $this->inDispatch = false;
-        $this
-            ->eventQueue
-            ->foreach(function ($event) {
-                $this->eventQueue = $this->eventQueue->drop(1);
-                $this->dispatch($event);
-            });
 
         return $this;
     }

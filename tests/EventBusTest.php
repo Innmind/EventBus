@@ -76,7 +76,7 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $count);
     }
 
-    public function testEnqueueNestedDispatchedEvents()
+    public function testDoesntEnqueueNestedDispatchedEvents()
     {
         $event = new class{};
         $eventClass = get_class($event);
@@ -92,16 +92,16 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
                                 private $count;
                                 private $tester;
 
-                                public function __construct(&$count, &$tester)
+                                public function __construct(&$count, $tester)
                                 {
                                     $this->count = &$count;
-                                    $this->tester = &$tester;
+                                    $this->tester = $tester;
                                 }
 
                                 public function __invoke($event) {
                                     ++$this->count;
                                     $this->tester->eb->dispatch(new \stdClass);
-                                    $this->tester->assertSame(1, $this->count);
+                                    $this->tester->assertSame(2, $this->count);
                                 }
                             }
                         )
@@ -110,16 +110,19 @@ class EventBusTest extends \PHPUnit_Framework_TestCase
                     'stdClass',
                     (new Set('callable'))
                         ->add(
-                            new class($count)
+                            new class($count, $this)
                             {
                                 private $count;
+                                private $tester;
 
-                                public function __construct(&$count)
+                                public function __construct(&$count, $tester)
                                 {
                                     $this->count = &$count;
+                                    $this->tester = $tester;
                                 }
 
                                 public function __invoke($event) {
+                                    $this->tester->assertSame(1, $this->count);
                                     ++$this->count;
                                 }
                             }
