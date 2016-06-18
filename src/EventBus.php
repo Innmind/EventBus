@@ -23,7 +23,7 @@ final class EventBus implements EventBusInterface
             throw new InvalidArgumentException;
         }
 
-        $listeners->foreach(function (string $name, SetInterface $listeners) {
+        $listeners->foreach(function(string $name, SetInterface $listeners) {
             if ((string) $listeners->type() !== 'callable') {
                 throw new InvalidArgumentException;
             }
@@ -42,12 +42,12 @@ final class EventBus implements EventBusInterface
         }
 
         $classes = $this->classesFor($event);
-        $classes->foreach(function (string $class) use ($event) {
+        $classes->foreach(function(string $class) use ($event) {
             if ($this->listeners->contains($class)) {
                 $this
                     ->listeners
                     ->get($class)
-                    ->foreach(function ($listener) use ($event) {
+                    ->foreach(function($listener) use ($event) {
                         $listener($event);
                     });
             }

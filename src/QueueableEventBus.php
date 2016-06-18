@@ -33,7 +33,7 @@ final class QueueableEventBus implements EventBusInterface
         $this->inDispatch = false;
         $this
             ->eventQueue
-            ->foreach(function ($event) {
+            ->foreach(function($event) {
                 $this->eventQueue = $this->eventQueue->drop(1);
                 $this->dispatch($event);
             });
