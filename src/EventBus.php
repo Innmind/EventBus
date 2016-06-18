@@ -7,7 +7,6 @@ use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     MapInterface,
     SetInterface,
-    Sequence,
     Set
 };
 
