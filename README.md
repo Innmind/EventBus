@@ -10,7 +10,14 @@
 
 Simple library to dispatch events to listeners; with the particularity that you can't order your listeners, listeners can't modify the event, listeners can't stop other listeners to be called and the event must be an object.
 
-Example of a simple case:
+## Instalation
+
+```sh
+composer require innmind/event-bus
+```
+
+## Example
+
 ```php
 use Innmind\{
     EventBus\EventBus,
