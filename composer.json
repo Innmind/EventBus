@@ -21,7 +21,7 @@
     "autoload": {
         "psr-4": {
             "Innmind\\EventBus\\": "src/",
-            "Tests\\Innmind\\EventBus\\": "src/"
+            "Tests\\Innmind\\EventBus\\": "tests/"
         }
     }
 }
