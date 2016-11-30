@@ -27,7 +27,7 @@ trait EventRecorder
         $this->domainEvents = new Sequence;
     }
 
-    private function record($event): self
+    protected function record($event): self
     {
         if (!is_object($event)) {
             throw new InvalidArgumentException;
