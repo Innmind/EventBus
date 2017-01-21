@@ -29,7 +29,15 @@ final class QueueableEventBus implements EventBusInterface
         }
 
         $this->inDispatch = true;
-        $this->eventBus->dispatch($event);
+
+        try {
+            $this->eventBus->dispatch($event);
+        } catch (\Throwable $e) {
+            $this->eventQueue = new Sequence;
+            $this->inDispatch = false;
+            throw $e;
+        }
+
         $this->inDispatch = false;
         $this
             ->eventQueue
