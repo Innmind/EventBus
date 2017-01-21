@@ -119,4 +119,25 @@ class QueueableEventBusTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(2, $count);
         unset($this->eb);
     }
+
+    public function testDispatchAfterAnExceptionHasBeenThrown()
+    {
+        $bus = $this->createMock(EventBusInterface::class);
+        $bus
+            ->expects($this->at(0))
+            ->method('dispatch')
+            ->will($this->throwException(new \Exception));
+        $bus
+            ->expects($this->at(1))
+            ->method('dispatch');
+        $queue = new QueueableEventBus($bus);
+
+        try {
+            $this->assertSame($queue, $queue->dispatch(new \stdClass));
+        } catch (\Exception $e) {
+            //pass
+        }
+
+        $this->assertSame($queue, $queue->dispatch(new \stdClass));
+    }
 }
