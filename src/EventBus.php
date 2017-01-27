@@ -3,7 +3,11 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\EventBus\Exception\InvalidArgumentException;
+use Innmind\EventBus\{
+    Exception\InvalidArgumentException,
+    ClassName\ExtractorInterface,
+    ClassName\InheritanceExtractor
+};
 use Innmind\Immutable\{
     MapInterface,
     SetInterface,
@@ -13,9 +17,12 @@ use Innmind\Immutable\{
 final class EventBus implements EventBusInterface
 {
     private $listeners;
+    private $extractor;
 
-    public function __construct(MapInterface $listeners)
-    {
+    public function __construct(
+        MapInterface $listeners,
+        ExtractorInterface $extractor = null
+    ) {
         if (
             (string) $listeners->keyType() !== 'string' ||
             (string) $listeners->valueType() !== SetInterface::class
@@ -30,6 +37,7 @@ final class EventBus implements EventBusInterface
         });
 
         $this->listeners = $listeners;
+        $this->extractor = $extractor ?? new InheritanceExtractor;
     }
 
     /**
@@ -41,8 +49,8 @@ final class EventBus implements EventBusInterface
             throw new InvalidArgumentException;
         }
 
-        $classes = $this->classesFor($event);
-        $classes->foreach(function(string $class) use ($event) {
+        $keys = ($this->extractor)($event);
+        $keys->foreach(function(string $class) use ($event) {
             if ($this->listeners->contains($class)) {
                 $this
                     ->listeners
@@ -54,29 +62,5 @@ final class EventBus implements EventBusInterface
         });
 
         return $this;
-    }
-
-    /**
-     * Determine all parent classes and interface the event implements
-     *
-     * @param object $event
-     *
-     * @return SetInterface<string>
-     */
-    private function classesFor($event): SetInterface
-    {
-        $classes = (new Set('string'))->add(get_class($event));
-        $refl = new \ReflectionClass($classes->current());
-        $interfaces = $refl->getInterfaceNames();
-
-        foreach ($interfaces as $interface) {
-            $classes = $classes->add($interface);
-        }
-
-        while (($refl = $refl->getParentClass()) !== false) {
-            $classes = $classes->add($refl->getName());
-        }
-
-        return $classes;
     }
 }
