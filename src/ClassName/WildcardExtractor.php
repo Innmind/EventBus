@@ -34,7 +34,7 @@ final class WildcardExtractor implements ExtractorInterface
 
         while ($fqcn->count() > 0) {
             $set = $set->add(
-                $fqcn->join('\\') . '\*'
+                $fqcn->join('\\').'\*'
             );
             $fqcn = $fqcn->pop();
         }
