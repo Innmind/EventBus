@@ -20,7 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Innmind\\EventBus\\": "src/",
+            "Innmind\\EventBus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fixtures\\Innmind\\EventBus\\": "fixtures/",
             "Tests\\Innmind\\EventBus\\": "tests/"
         }
     }
