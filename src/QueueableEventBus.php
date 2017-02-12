@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\Immutable\Sequence;
+use Innmind\Immutable\Stream;
 
 final class QueueableEventBus implements EventBusInterface
 {
@@ -14,7 +14,7 @@ final class QueueableEventBus implements EventBusInterface
     public function __construct(EventBusInterface $eventBus)
     {
         $this->eventBus = $eventBus;
-        $this->eventQueue = new Sequence;
+        $this->eventQueue = new Stream('object');
     }
 
     /**
@@ -33,7 +33,7 @@ final class QueueableEventBus implements EventBusInterface
         try {
             $this->eventBus->dispatch($event);
         } catch (\Throwable $e) {
-            $this->eventQueue = new Sequence;
+            $this->eventQueue = new Stream('object');
             $this->inDispatch = false;
             throw $e;
         }
