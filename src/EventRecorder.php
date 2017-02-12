@@ -28,7 +28,7 @@ trait EventRecorder
     /**
      * {@inheritdoc}
      */
-    public function clearEvents()
+    public function clearEvents(): void
     {
         $this->domainEvents = new Stream('object');
     }

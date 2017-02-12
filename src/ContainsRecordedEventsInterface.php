@@ -15,5 +15,5 @@ interface ContainsRecordedEventsInterface
     /**
      * @return void
      */
-    public function clearEvents();
+    public function clearEvents(): void;
 }
