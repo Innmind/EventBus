@@ -7,7 +7,7 @@ use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     SetInterface,
     Set,
-    StringPrimitive as Str
+    Str
 };
 
 /**
@@ -30,13 +30,13 @@ final class WildcardExtractor implements ExtractorInterface
         $set = new Set('string');
         $fqcn = (new Str(get_class($event)))
             ->split('\\')
-            ->pop();
+            ->dropEnd(1);
 
         while ($fqcn->count() > 0) {
             $set = $set->add(
                 $fqcn->join('\\').'\*'
             );
-            $fqcn = $fqcn->pop();
+            $fqcn = $fqcn->dropEnd(1);
         }
 
         return $set;
