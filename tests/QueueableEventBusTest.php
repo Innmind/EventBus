@@ -13,8 +13,9 @@ use Innmind\Immutable\{
     SetInterface,
     Set
 };
+use PHPUnit\Framework\TestCase;
 
-class QueueableEventBusTest extends \PHPUnit_Framework_TestCase
+class QueueableEventBusTest extends TestCase
 {
     public function testInterface()
     {

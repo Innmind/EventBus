@@ -8,8 +8,9 @@ use Innmind\EventBus\{
     ContainsRecordedEventsInterface
 };
 use Innmind\Immutable\StreamInterface;
+use PHPUnit\Framework\TestCase;
 
-class EventRecorderTest extends \PHPUnit_Framework_TestCase
+class EventRecorderTest extends TestCase
 {
     public function testInterface()
     {

@@ -9,8 +9,9 @@ use Innmind\EventBus\ClassName\{
 };
 use Fixtures\Innmind\EventBus\Foo;
 use Innmind\Immutable\SetInterface;
+use PHPUnit\Framework\TestCase;
 
-class WildcardExtractorTest extends \PHPUnit_Framework_TestCase
+class WildcardExtractorTest extends TestCase
 {
     public function testInterface()
     {

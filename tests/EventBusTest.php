@@ -12,8 +12,9 @@ use Innmind\Immutable\{
     SetInterface,
     Set
 };
+use PHPUnit\Framework\TestCase;
 
-class EventBusTest extends \PHPUnit_Framework_TestCase
+class EventBusTest extends TestCase
 {
     public function testInterface()
     {
