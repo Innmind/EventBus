@@ -7,8 +7,9 @@ use Innmind\EventBus\{
     NullEventBus,
     EventBusInterface
 };
+use PHPUnit\Framework\TestCase;
 
-class NullEventBusTest extends \PHPUnit_Framework_TestCase
+class NullEventBusTest extends TestCase
 {
     public function testInterface()
     {

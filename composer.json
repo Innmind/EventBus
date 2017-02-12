@@ -15,8 +15,8 @@
         "issues": "http://github.com/Innmind/EventBus/issues"
     },
     "require": {
-        "php": ">=7.0",
-        "innmind/immutable": "^1.8"
+        "php": "~7.1",
+        "innmind/immutable": "~2.0"
     },
     "autoload": {
         "psr-4": {
@@ -28,5 +28,11 @@
             "Fixtures\\Innmind\\EventBus\\": "fixtures/",
             "Tests\\Innmind\\EventBus\\": "tests/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always"
     }
 }

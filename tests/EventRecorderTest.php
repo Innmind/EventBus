@@ -7,9 +7,10 @@ use Innmind\EventBus\{
     EventRecorder,
     ContainsRecordedEventsInterface
 };
-use Innmind\Immutable\SequenceInterface;
+use Innmind\Immutable\StreamInterface;
+use PHPUnit\Framework\TestCase;
 
-class EventRecorderTest extends \PHPUnit_Framework_TestCase
+class EventRecorderTest extends TestCase
 {
     public function testInterface()
     {
@@ -34,7 +35,8 @@ class EventRecorderTest extends \PHPUnit_Framework_TestCase
         };
 
         $recorder->trigger();
-        $this->assertInstanceOf(SequenceInterface::class, $recorder->recordedEvents());
+        $this->assertInstanceOf(StreamInterface::class, $recorder->recordedEvents());
+        $this->assertSame('object', (string) $recorder->recordedEvents()->type());
         $this->assertSame(1, $recorder->recordedEvents()->size());
         $this->assertInstanceOf('stdClass', $recorder->recordedEvents()->current());
         $this->assertSame(null, $recorder->clearEvents());

@@ -5,26 +5,32 @@ namespace Innmind\EventBus;
 
 use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
-    Sequence,
-    SequenceInterface
+    Stream,
+    StreamInterface
 };
 
 trait EventRecorder
 {
     private $domainEvents;
 
-    public function recordedEvents(): SequenceInterface
+    /**
+     * {@inheritdoc}
+     */
+    public function recordedEvents(): StreamInterface
     {
         if ($this->domainEvents === null) {
-            $this->domainEvents = new Sequence;
+            $this->domainEvents = new Stream('object');
         }
 
         return $this->domainEvents;
     }
 
-    public function clearEvents()
+    /**
+     * {@inheritdoc}
+     */
+    public function clearEvents(): void
     {
-        $this->domainEvents = new Sequence;
+        $this->domainEvents = new Stream('object');
     }
 
     protected function record($event): self
@@ -34,7 +40,7 @@ trait EventRecorder
         }
 
         if ($this->domainEvents === null) {
-            $this->domainEvents = new Sequence;
+            $this->domainEvents = new Stream('object');
         }
 
         $this->domainEvents = $this->domainEvents->add($event);

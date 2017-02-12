@@ -11,8 +11,9 @@ use Innmind\Immutable\{
     SetInterface,
     Set
 };
+use PHPUnit\Framework\TestCase;
 
-class CompositeExtractorTest extends \PHPUnit_Framework_TestCase
+class CompositeExtractorTest extends TestCase
 {
     public function testInterface()
     {

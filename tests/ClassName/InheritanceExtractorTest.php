@@ -13,8 +13,9 @@ use Fixtures\Innmind\EventBus\{
     BazInterface
 };
 use Innmind\Immutable\SetInterface;
+use PHPUnit\Framework\TestCase;
 
-class InheritanceExtractorTest extends \PHPUnit_Framework_TestCase
+class InheritanceExtractorTest extends TestCase
 {
     public function testInterface()
     {
