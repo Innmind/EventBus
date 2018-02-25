@@ -1,0 +1,25 @@
+arguments:
+    listeners: 'map<string, Innmind\Immutable\SetInterface>'
+    class_name_extractor: Innmind\EventBus\ClassName\ExtractorInterface ?? $class_name_extractor.composite
+
+expose:
+    bus: $bus
+    queue: $queue
+
+services:
+    class_name_extractor:
+        composite Innmind\EventBus\ClassName\CompositeExtractor:
+            - '$class_name_extractor.inheritance'
+            - '$class_name_extractor.wildcard'
+
+        wildcard Innmind\EventBus\ClassName\WildcardExtractor: []
+
+        inheritance Innmind\EventBus\ClassName\InheritanceExtractor: []
+
+    queue Innmind\EventBus\QueueableEventBus:
+        - '@decorated'
+
+    bus Innmind\EventBus\EventBus:
+        - '$listeners'
+        - '$class_name_extractor'
+
