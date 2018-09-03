@@ -5,6 +5,9 @@ namespace Innmind\EventBus;
 
 use Innmind\Immutable\Stream;
 
+/**
+ * @deprecated See EnqueueEventBus and DequeueEventBus
+ */
 final class QueueableEventBus implements EventBusInterface
 {
     private $eventBus;
@@ -13,6 +16,8 @@ final class QueueableEventBus implements EventBusInterface
 
     public function __construct(EventBusInterface $eventBus)
     {
+        trigger_error('See EnqueueEventBus and DequeueEventBus', E_USER_DEPRECATED);
+
         $this->eventBus = $eventBus;
         $this->eventQueue = new Stream('object');
     }
