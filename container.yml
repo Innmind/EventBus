@@ -3,8 +3,10 @@ arguments:
     class_name_extractor: Innmind\EventBus\ClassName\ExtractorInterface ?? $class_name_extractor.composite
 
 expose:
-    bus: $bus
-    queue: $queue
+    bus: $bus.bus
+    queue: $bus.queue
+    enqueue: $bus.enqueue
+    dequeue: $bus.dequeue
 
 services:
     class_name_extractor:
@@ -16,10 +18,20 @@ services:
 
         inheritance Innmind\EventBus\ClassName\InheritanceExtractor: []
 
-    queue Innmind\EventBus\QueueableEventBus:
-        - '@decorated'
+    bus:
+        queue Innmind\EventBus\QueueableEventBus:
+            - '@decorated'
 
-    bus Innmind\EventBus\EventBus:
-        - '$listeners'
-        - '$class_name_extractor'
+        bus Innmind\EventBus\EventBus:
+            - '$listeners'
+            - '$class_name_extractor'
+
+        enqueue Innmind\EventBus\EnqueueEventBus:
+            - '$queue'
+
+        dequeue Innmind\EventBus\DequeueEventBus:
+            - '@decorated'
+            - '$queue'
+
+    queue Innmind\EventBus\Queue: []
 
