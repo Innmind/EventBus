@@ -28,12 +28,12 @@ final class Map implements EventBusInterface
             (string) $listeners->keyType() !== 'string' ||
             (string) $listeners->valueType() !== SetInterface::class
         ) {
-            throw new InvalidArgumentException;
+            throw new \TypeError('Argument 1 must be of type MapInterface<string, SetInterface<callable>>');
         }
 
         $listeners->foreach(function(string $name, SetInterface $listeners) {
             if ((string) $listeners->type() !== 'callable') {
-                throw new InvalidArgumentException;
+                throw new \TypeError('Argument 1 must be of type MapInterface<string, SetInterface<callable>>');
             }
         });
 

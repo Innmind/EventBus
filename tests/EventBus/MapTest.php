@@ -26,19 +26,19 @@ class MapTest extends TestCase
         $this->assertInstanceOf(EventBusInterface::class, $bus);
     }
 
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
     public function testThrowWhenInvalidListenersMapGiven()
     {
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessage('Argument 1 must be of type MapInterface<string, SetInterface<callable>>');
+
         new Map(new IMap('string', 'array'));
     }
 
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
     public function testThrowWhenInvalidMapOfListenersSetsGiven()
     {
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessage('Argument 1 must be of type MapInterface<string, SetInterface<callable>>');
+
         new Map(
             (new IMap('string', SetInterface::class))
                 ->put('foo', new Set('object'))
