@@ -33,12 +33,4 @@ class WildcardExtractorTest extends TestCase
             $set->toPrimitive()
         );
     }
-
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
-    public function testThrowWhenEventNotAnObject()
-    {
-        (new WildcardExtractor)('foo');
-    }
 }

@@ -18,15 +18,8 @@ use Innmind\Immutable\{
  */
 final class WildcardExtractor implements ExtractorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke($event): SetInterface
+    public function __invoke(object $event): SetInterface
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         $set = new Set('string');
         $fqcn = (new Str(get_class($event)))
             ->split('\\')

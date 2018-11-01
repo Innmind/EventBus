@@ -42,22 +42,4 @@ class EventRecorderTest extends TestCase
         $this->assertSame(null, $recorder->clearEvents());
         $this->assertSame(0, $recorder->recordedEvents()->size());
     }
-
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
-    public function testThrowWhenNotUsingAnObjectWhenRecordingAnEvent()
-    {
-        $recorder = new class implements ContainsRecordedEventsInterface
-        {
-            use EventRecorder;
-
-            public function trigger()
-            {
-                $this->record('foo');
-            }
-        };
-
-        $recorder->trigger();
-    }
 }

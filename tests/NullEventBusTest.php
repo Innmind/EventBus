@@ -18,12 +18,4 @@ class NullEventBusTest extends TestCase
         $this->assertInstanceOf(EventBusInterface::class, $eb);
         $this->assertSame($eb, $eb->dispatch(new \stdClass));
     }
-
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
-    public function testThrowIfEventIsNotAnObject()
-    {
-        (new NullEventBus)->dispatch([]);
-    }
 }

@@ -33,12 +33,8 @@ trait EventRecorder
         $this->domainEvents = new Stream('object');
     }
 
-    protected function record($event): self
+    protected function record(object $event): self
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         if ($this->domainEvents === null) {
             $this->domainEvents = new Stream('object');
         }

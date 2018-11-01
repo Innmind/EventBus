@@ -11,15 +11,8 @@ use Innmind\Immutable\{
 
 final class InheritanceExtractor implements ExtractorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke($event): SetInterface
+    public function __invoke(object $event): SetInterface
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         $classes = (new Set('string'))->add(get_class($event));
         $refl = new \ReflectionClass($classes->current());
         $interfaces = $refl->getInterfaceNames();

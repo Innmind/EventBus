@@ -7,15 +7,8 @@ use Innmind\EventBus\Exception\InvalidArgumentException;
 
 final class NullEventBus implements EventBusInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function dispatch($event): EventBusInterface
+    public function dispatch(object $event): EventBusInterface
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         return $this;
     }
 }

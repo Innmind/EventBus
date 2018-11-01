@@ -17,10 +17,7 @@ final class CompositeExtractor implements ExtractorInterface
         $this->extractors = $extractors;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke($event): SetInterface
+    public function __invoke(object $event): SetInterface
     {
         $set = new Set('string');
 

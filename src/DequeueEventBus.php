@@ -14,10 +14,7 @@ final class DequeueEventBus implements EventBusInterface
         $this->queue = $queue;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function dispatch($event): EventBusInterface
+    public function dispatch(object $event): EventBusInterface
     {
         $this->bus->dispatch($event);
 

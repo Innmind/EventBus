@@ -40,15 +40,8 @@ final class EventBus implements EventBusInterface
         $this->extractor = $extractor ?? new InheritanceExtractor;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function dispatch($event): EventBusInterface
+    public function dispatch(object $event): EventBusInterface
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         $keys = ($this->extractor)($event);
         $keys->foreach(function(string $class) use ($event) {
             if ($this->listeners->contains($class)) {
