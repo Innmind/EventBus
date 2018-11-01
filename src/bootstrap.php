@@ -18,11 +18,11 @@ function bootstrap(ClassName\Extractor $extractor = null): array
 
     return [
         'bus' => static function (MapInterface $listeners) use ($extractor): EventBus {
-            return new EventBus\EventBus($listeners, $extractor);
+            return new EventBus\Map($listeners, $extractor);
         },
-        'enqueue' => new EventBus\EnqueueEventBus($queue),
+        'enqueue' => new EventBus\Enqueue($queue),
         'dequeue' => static function(EventBus $bus) use ($queue): EventBus {
-            return new EventBus\DequeueEventBus($bus, $queue);
+            return new EventBus\Dequeue($bus, $queue);
         },
     ];
 }

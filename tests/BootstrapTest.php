@@ -5,12 +5,12 @@ namespace Tests\Innmind\EventBus;
 
 use function Innmind\EventBus\bootstrap;
 use Innmind\EventBus\{
-    EventBus\EventBus,
-    EventBus\DequeueEventBus,
-    EventBus\EnqueueEventBus,
+    EventBus\Map,
+    EventBus\Dequeue,
+    EventBus\Enqueue,
 };
 use Innmind\Immutable\{
-    Map,
+    Map as IMap,
     SetInterface,
     Set,
 };
@@ -27,14 +27,14 @@ class BootstrapTest extends TestCase
 
         $this->assertInternalType('callable', $bus);
         $this->assertInstanceOf(
-            EventBus::class,
-            $bus(new Map('string', SetInterface::class))
+            Map::class,
+            $bus(new IMap('string', SetInterface::class))
         );
-        $this->assertInstanceOf(EnqueueEventBus::class, $enqueue);
+        $this->assertInstanceOf(Enqueue::class, $enqueue);
         $this->assertInternalType('callable', $dequeue);
         $this->assertInstanceOf(
-            DequeueEventBus::class,
-            $dequeue($bus(new Map('string', SetInterface::class)))
+            Dequeue::class,
+            $dequeue($bus(new IMap('string', SetInterface::class)))
         );
     }
 
@@ -46,7 +46,7 @@ class BootstrapTest extends TestCase
         $dequeue = $buses['dequeue'];
 
         $called = 0;
-        $listeners = (new Map('string', SetInterface::class))
+        $listeners = (new IMap('string', SetInterface::class))
             ->put('stdClass', Set::of(
                 'callable',
                 function() use ($enqueue): void {

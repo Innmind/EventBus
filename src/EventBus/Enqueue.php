@@ -8,7 +8,7 @@ use Innmind\EventBus\{
     Queue,
 };
 
-final class EnqueueEventBus implements EventBus
+final class Enqueue implements EventBus
 {
     private $queue;
 

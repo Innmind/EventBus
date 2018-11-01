@@ -15,7 +15,7 @@ use Innmind\Immutable\{
     Set
 };
 
-final class EventBus implements EventBusInterface
+final class Map implements EventBusInterface
 {
     private $listeners;
     private $extractor;

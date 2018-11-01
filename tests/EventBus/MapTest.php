@@ -4,22 +4,22 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    EventBus\EventBus,
+    EventBus\Map,
     EventBus as EventBusInterface
 };
 use Innmind\Immutable\{
-    Map,
+    Map as IMap,
     SetInterface,
     Set
 };
 use PHPUnit\Framework\TestCase;
 
-class EventBusTest extends TestCase
+class MapTest extends TestCase
 {
     public function testInterface()
     {
-        $bus = new EventBus(
-            (new Map('string', SetInterface::class))
+        $bus = new Map(
+            (new IMap('string', SetInterface::class))
                 ->put('foo', new Set('callable'))
         );
 
@@ -31,7 +31,7 @@ class EventBusTest extends TestCase
      */
     public function testThrowWhenInvalidListenersMapGiven()
     {
-        new EventBus(new Map('string', 'array'));
+        new Map(new IMap('string', 'array'));
     }
 
     /**
@@ -39,8 +39,8 @@ class EventBusTest extends TestCase
      */
     public function testThrowWhenInvalidMapOfListenersSetsGiven()
     {
-        new EventBus(
-            (new Map('string', SetInterface::class))
+        new Map(
+            (new IMap('string', SetInterface::class))
                 ->put('foo', new Set('object'))
         );
     }
@@ -50,8 +50,8 @@ class EventBusTest extends TestCase
         $event = new class{};
         $eventClass = get_class($event);
         $count = 0;
-        $dispatch = new EventBus(
-            (new Map('string', SetInterface::class))
+        $dispatch = new Map(
+            (new IMap('string', SetInterface::class))
                 ->put(
                     $eventClass,
                     (new Set('callable'))
@@ -82,8 +82,8 @@ class EventBusTest extends TestCase
         $event = new class{};
         $eventClass = get_class($event);
         $count = 0;
-        $this->dispatch = new EventBus(
-            (new Map('string', SetInterface::class))
+        $this->dispatch = new Map(
+            (new IMap('string', SetInterface::class))
                 ->put(
                     $eventClass,
                     (new Set('callable'))
@@ -140,8 +140,8 @@ class EventBusTest extends TestCase
     {
         $event = new class extends \stdClass{};
         $count = 0;
-        $dispatch = new EventBus(
-            (new Map('string', SetInterface::class))
+        $dispatch = new Map(
+            (new IMap('string', SetInterface::class))
                 ->put(
                     'stdClass',
                     (new Set('callable'))
@@ -174,8 +174,8 @@ class EventBusTest extends TestCase
             public function getIterator() {}
         };
         $count = 0;
-        $dispatch = new EventBus(
-            (new Map('string', SetInterface::class))
+        $dispatch = new Map(
+            (new IMap('string', SetInterface::class))
                 ->put(
                     'IteratorAggregate',
                     (new Set('callable'))
