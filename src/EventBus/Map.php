@@ -5,7 +5,6 @@ namespace Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
     EventBus as EventBusInterface,
-    Exception\InvalidArgumentException,
     ClassName\Extractor,
     ClassName\Inheritance,
 };

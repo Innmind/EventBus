@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     Stream,
     StreamInterface,
