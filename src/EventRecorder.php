@@ -17,11 +17,7 @@ trait EventRecorder
      */
     public function recordedEvents(): StreamInterface
     {
-        if ($this->domainEvents === null) {
-            $this->domainEvents = new Stream('object');
-        }
-
-        return $this->domainEvents;
+        return $this->domainEvents ?? $this->domainEvents = Stream::of('object');
     }
 
     /**
@@ -34,11 +30,7 @@ trait EventRecorder
 
     protected function record(object $event): self
     {
-        if ($this->domainEvents === null) {
-            $this->domainEvents = new Stream('object');
-        }
-
-        $this->domainEvents = $this->domainEvents->add($event);
+        $this->domainEvents = $this->recordedEvents()->add($event);
 
         return $this;
     }
