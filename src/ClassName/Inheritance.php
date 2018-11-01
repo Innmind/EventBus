@@ -3,23 +3,15 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus\ClassName;
 
-use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     SetInterface,
-    Set
+    Set,
 };
 
-final class InheritanceExtractor implements ExtractorInterface
+final class Inheritance implements Extractor
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke($event): SetInterface
+    public function __invoke(object $event): SetInterface
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         $classes = (new Set('string'))->add(get_class($event));
         $refl = new \ReflectionClass($classes->current());
         $interfaces = $refl->getInterfaceNames();

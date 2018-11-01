@@ -5,22 +5,19 @@ namespace Innmind\EventBus\ClassName;
 
 use Innmind\Immutable\{
     SetInterface,
-    Set
+    Set,
 };
 
-final class CompositeExtractor implements ExtractorInterface
+final class Composite implements Extractor
 {
     private $extractors;
 
-    public function __construct(ExtractorInterface ...$extractors)
+    public function __construct(Extractor ...$extractors)
     {
         $this->extractors = $extractors;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke($event): SetInterface
+    public function __invoke(object $event): SetInterface
     {
         $set = new Set('string');
 

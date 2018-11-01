@@ -4,26 +4,26 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
-    ExtractorInterface,
-    WildcardExtractor
+    Wildcard,
+    Extractor,
 };
 use Fixtures\Innmind\EventBus\Foo;
 use Innmind\Immutable\SetInterface;
 use PHPUnit\Framework\TestCase;
 
-class WildcardExtractorTest extends TestCase
+class WildcardTest extends TestCase
 {
     public function testInterface()
     {
         $this->assertInstanceOf(
-            ExtractorInterface::class,
-            new WildcardExtractor
+            Extractor::class,
+            new Wildcard
         );
     }
 
     public function testExecution()
     {
-        $set = (new WildcardExtractor)(new Foo);
+        $set = (new Wildcard)(new Foo);
 
         $this->assertInstanceOf(SetInterface::class, $set);
         $this->assertSame('string', (string) $set->type());
@@ -32,13 +32,5 @@ class WildcardExtractorTest extends TestCase
             ['Fixtures\Innmind\EventBus\*', 'Fixtures\Innmind\*', 'Fixtures\*'],
             $set->toPrimitive()
         );
-    }
-
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
-    public function testThrowWhenEventNotAnObject()
-    {
-        (new WildcardExtractor)('foo');
     }
 }

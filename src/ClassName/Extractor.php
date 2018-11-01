@@ -5,12 +5,10 @@ namespace Innmind\EventBus\ClassName;
 
 use Innmind\Immutable\SetInterface;
 
-interface ExtractorInterface
+interface Extractor
 {
     /**
-     * @param object $event
-     *
      * @return SetInterface<string>
      */
-    public function __invoke($event): SetInterface;
+    public function __invoke(object $event): SetInterface;
 }

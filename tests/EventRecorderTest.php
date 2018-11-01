@@ -5,7 +5,7 @@ namespace Tests\Innmind\EventBus;
 
 use Innmind\EventBus\{
     EventRecorder,
-    ContainsRecordedEventsInterface
+    ContainsRecordedEvents,
 };
 use Innmind\Immutable\StreamInterface;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ class EventRecorderTest extends TestCase
 {
     public function testInterface()
     {
-        $recorder = new class($this) implements ContainsRecordedEventsInterface
+        $recorder = new class($this) implements ContainsRecordedEvents
         {
             use EventRecorder;
 
@@ -41,23 +41,5 @@ class EventRecorderTest extends TestCase
         $this->assertInstanceOf('stdClass', $recorder->recordedEvents()->current());
         $this->assertSame(null, $recorder->clearEvents());
         $this->assertSame(0, $recorder->recordedEvents()->size());
-    }
-
-    /**
-     * @expectedException Innmind\EventBus\Exception\InvalidArgumentException
-     */
-    public function testThrowWhenNotUsingAnObjectWhenRecordingAnEvent()
-    {
-        $recorder = new class implements ContainsRecordedEventsInterface
-        {
-            use EventRecorder;
-
-            public function trigger()
-            {
-                $this->record('foo');
-            }
-        };
-
-        $recorder->trigger();
     }
 }

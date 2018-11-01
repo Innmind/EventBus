@@ -1,32 +1,32 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Innmind\EventBus;
+namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    EventBusInterface,
-    EnqueueEventBus,
+    EventBus\Enqueue,
+    EventBus,
     Queue,
 };
 use PHPUnit\Framework\TestCase;
 
-class EnqueueEventBusTest extends TestCase
+class EnqueueTest extends TestCase
 {
     public function testInterface()
     {
         $this->assertInstanceOf(
-            EventBusInterface::class,
-            new EnqueueEventBus(new Queue)
+            EventBus::class,
+            new Enqueue(new Queue)
         );
     }
 
     public function testDispatch()
     {
-        $bus = new EnqueueEventBus($queue = new Queue);
+        $dispatch = new Enqueue($queue = new Queue);
 
         $event = new \stdClass;
 
-        $this->assertSame($bus, $bus->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
         $this->assertSame($event, $queue->dequeue());
     }
 }

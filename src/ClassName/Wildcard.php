@@ -3,11 +3,10 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus\ClassName;
 
-use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     SetInterface,
     Set,
-    Str
+    Str,
 };
 
 /**
@@ -16,17 +15,10 @@ use Innmind\Immutable\{
  * Domain\Event\*
  * Domain\*
  */
-final class WildcardExtractor implements ExtractorInterface
+final class Wildcard implements Extractor
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke($event): SetInterface
+    public function __invoke(object $event): SetInterface
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
         $set = new Set('string');
         $fqcn = (new Str(get_class($event)))
             ->split('\\')

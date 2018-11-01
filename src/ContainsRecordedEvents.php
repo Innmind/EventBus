@@ -5,7 +5,7 @@ namespace Innmind\EventBus;
 
 use Innmind\Immutable\StreamInterface;
 
-interface ContainsRecordedEventsInterface
+interface ContainsRecordedEvents
 {
     /**
      * @return StreamInterface<object>

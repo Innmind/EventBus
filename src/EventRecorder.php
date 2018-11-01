@@ -3,26 +3,21 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     Stream,
-    StreamInterface
+    StreamInterface,
 };
 
 trait EventRecorder
 {
-    private $domainEvents;
+    private $recordedEvents;
 
     /**
      * {@inheritdoc}
      */
     public function recordedEvents(): StreamInterface
     {
-        if ($this->domainEvents === null) {
-            $this->domainEvents = new Stream('object');
-        }
-
-        return $this->domainEvents;
+        return $this->recordedEvents ?? $this->recordedEvents = Stream::of('object');
     }
 
     /**
@@ -30,20 +25,12 @@ trait EventRecorder
      */
     public function clearEvents(): void
     {
-        $this->domainEvents = new Stream('object');
+        $this->recordedEvents = new Stream('object');
     }
 
-    protected function record($event): self
+    protected function record(object $event): self
     {
-        if (!is_object($event)) {
-            throw new InvalidArgumentException;
-        }
-
-        if ($this->domainEvents === null) {
-            $this->domainEvents = new Stream('object');
-        }
-
-        $this->domainEvents = $this->domainEvents->add($event);
+        $this->recordedEvents = $this->recordedEvents()->add($event);
 
         return $this;
     }

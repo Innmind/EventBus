@@ -1,23 +1,23 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Innmind\EventBus;
+namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    EventBusInterface,
-    DequeueEventBus,
+    EventBus\Dequeue,
+    EventBus,
     Queue,
 };
 use PHPUnit\Framework\TestCase;
 
-class DequeueEventBusTest extends TestCase
+class DequeueTest extends TestCase
 {
     public function testInterface()
     {
         $this->assertInstanceOf(
-            EventBusInterface::class,
-            new DequeueEventBus(
-                $this->createMock(EventBusInterface::class),
+            EventBus::class,
+            new Dequeue(
+                $this->createMock(EventBus::class),
                 new Queue
             )
         );
@@ -25,29 +25,29 @@ class DequeueEventBusTest extends TestCase
 
     public function testDispatchWithNoEnqueue()
     {
-        $bus = new DequeueEventBus(
-            $inner = $this->createMock(EventBusInterface::class),
+        $dispatch = new Dequeue(
+            $inner = $this->createMock(EventBus::class),
             new Queue
         );
         $event = new \stdClass;
         $inner
             ->expects($this->once())
-            ->method('dispatch')
+            ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($bus, $bus->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
     }
 
     public function testDispatchWithEnqueue()
     {
-        $bus = new DequeueEventBus(
-            $inner = $this->createMock(EventBusInterface::class),
+        $dispatch = new Dequeue(
+            $inner = $this->createMock(EventBus::class),
             $queue = new Queue
         );
         $event = new \stdClass;
         $inner
             ->expects($this->at(0))
-            ->method('dispatch')
+            ->method('__invoke')
             ->with($this->callback(function($event) use ($queue): bool {
                 $queue->enqueue($event);
 
@@ -55,9 +55,9 @@ class DequeueEventBusTest extends TestCase
             }));
         $inner
             ->expects($this->at(1))
-            ->method('dispatch')
+            ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($bus, $bus->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
     }
 }
