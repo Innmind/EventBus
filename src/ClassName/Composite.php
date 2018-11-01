@@ -8,7 +8,7 @@ use Innmind\Immutable\{
     Set
 };
 
-final class CompositeExtractor implements Extractor
+final class Composite implements Extractor
 {
     private $extractors;
 

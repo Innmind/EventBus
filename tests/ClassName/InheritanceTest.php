@@ -5,7 +5,7 @@ namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
     Extractor,
-    InheritanceExtractor
+    Inheritance
 };
 use Fixtures\Innmind\EventBus\{
     Foo,
@@ -15,19 +15,19 @@ use Fixtures\Innmind\EventBus\{
 use Innmind\Immutable\SetInterface;
 use PHPUnit\Framework\TestCase;
 
-class InheritanceExtractorTest extends TestCase
+class InheritanceTest extends TestCase
 {
     public function testInterface()
     {
         $this->assertInstanceOf(
             Extractor::class,
-            new InheritanceExtractor
+            new Inheritance
         );
     }
 
     public function testExecution()
     {
-        $set = (new InheritanceExtractor)(new Foo);
+        $set = (new Inheritance)(new Foo);
 
         $this->assertInstanceOf(SetInterface::class, $set);
         $this->assertSame('string', (string) $set->type());

@@ -10,9 +10,9 @@ use Innmind\Immutable\MapInterface;
  */
 function bootstrap(ClassName\Extractor $extractor = null): array
 {
-    $extractor = $extractor ?? new ClassName\CompositeExtractor(
-        new ClassName\InheritanceExtractor,
-        new ClassName\WildcardExtractor
+    $extractor = $extractor ?? new ClassName\Composite(
+        new ClassName\Inheritance,
+        new ClassName\Wildcard
     );
     $queue = new Queue;
 

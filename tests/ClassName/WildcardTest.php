@@ -5,25 +5,25 @@ namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
     Extractor,
-    WildcardExtractor
+    Wildcard
 };
 use Fixtures\Innmind\EventBus\Foo;
 use Innmind\Immutable\SetInterface;
 use PHPUnit\Framework\TestCase;
 
-class WildcardExtractorTest extends TestCase
+class WildcardTest extends TestCase
 {
     public function testInterface()
     {
         $this->assertInstanceOf(
             Extractor::class,
-            new WildcardExtractor
+            new Wildcard
         );
     }
 
     public function testExecution()
     {
-        $set = (new WildcardExtractor)(new Foo);
+        $set = (new Wildcard)(new Foo);
 
         $this->assertInstanceOf(SetInterface::class, $set);
         $this->assertSame('string', (string) $set->type());

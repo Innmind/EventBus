@@ -7,7 +7,7 @@ use Innmind\EventBus\{
     EventBus as EventBusInterface,
     Exception\InvalidArgumentException,
     ClassName\Extractor,
-    ClassName\InheritanceExtractor
+    ClassName\Inheritance
 };
 use Innmind\Immutable\{
     MapInterface,
@@ -38,7 +38,7 @@ final class EventBus implements EventBusInterface
         });
 
         $this->listeners = $listeners;
-        $this->extractor = $extractor ?? new InheritanceExtractor;
+        $this->extractor = $extractor ?? new Inheritance;
     }
 
     public function __invoke(object $event): EventBusInterface
