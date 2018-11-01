@@ -18,11 +18,7 @@ composer require innmind/event-bus
 
 ```php
 use function Innmind\EventBus\bootstrap;
-use Innmind\Immutable\{
-    Map,
-    SetInterface,
-    Set
-};
+use Innmind\Immutable\Map;
 
 class MyEvent{}
 
