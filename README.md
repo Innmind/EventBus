@@ -17,27 +17,25 @@ composer require innmind/event-bus
 ## Example
 
 ```php
-use Innmind\{
-    EventBus\EventBus,
-    Immutable\Map,
-    Immutable\SetInterface,
-    Immutable\Set
+use function Innmind\EventBus\bootstrap;
+use Innmind\Immutable\{
+    Map,
+    SetInterface,
+    Set
 };
 
 class MyEvent{}
 
-$dispatcher = new EventBus(
-    (new Map('string', SetInterface::class))
-        ->put(
-            MyEvent::class,
-            (new Set('callable'))
-                ->add(function (MyEvent $event) {
-                    echo 'foo';
-                })
-        )
+$echo = function(MyEvent $event): void {
+    echo 'foo';
+};
+
+$dispatch = bootstrap()['bus'](
+    Map::of('string', 'callable')
+        (MyEvent::class, $echo)
 );
 
-$dispatcher->dispatch(new MyEvent); // will print "foo"
+$dispatch(new MyEvent); // will print "foo"
 ```
 
 All listeners must be `callable`s and can listen to a specific class, a parent class or an interface.
