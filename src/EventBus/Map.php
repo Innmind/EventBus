@@ -25,16 +25,10 @@ final class Map implements EventBusInterface
     ) {
         if (
             (string) $listeners->keyType() !== 'string' ||
-            (string) $listeners->valueType() !== SetInterface::class
+            (string) $listeners->valueType() !== 'callable'
         ) {
-            throw new \TypeError('Argument 1 must be of type MapInterface<string, SetInterface<callable>>');
+            throw new \TypeError('Argument 1 must be of type MapInterface<string, callable>');
         }
-
-        $listeners->foreach(function(string $name, SetInterface $listeners) {
-            if ((string) $listeners->type() !== 'callable') {
-                throw new \TypeError('Argument 1 must be of type MapInterface<string, SetInterface<callable>>');
-            }
-        });
 
         $this->listeners = $listeners;
         $this->extractor = $extractor ?? new Inheritance;
@@ -43,14 +37,11 @@ final class Map implements EventBusInterface
     public function __invoke(object $event): EventBusInterface
     {
         $keys = ($this->extractor)($event);
-        $keys->foreach(function(string $class) use ($event) {
+        $keys->foreach(function(string $class) use ($event): void {
             if ($this->listeners->contains($class)) {
-                $this
-                    ->listeners
-                    ->get($class)
-                    ->foreach(function($listener) use ($event) {
-                        $listener($event);
-                    });
+                $listen = $this->listeners->get($class);
+
+                $listen($event);
             }
         });
 

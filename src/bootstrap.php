@@ -6,7 +6,7 @@ namespace Innmind\EventBus;
 use Innmind\Immutable\MapInterface;
 
 /**
- * @param MapInterface<string, Innmind\Immutable\SetInterface<callable>> $listeners
+ * @param MapInterface<string, callable> $listeners
  */
 function bootstrap(ClassName\Extractor $extractor = null): array
 {

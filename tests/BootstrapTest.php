@@ -28,13 +28,13 @@ class BootstrapTest extends TestCase
         $this->assertInternalType('callable', $bus);
         $this->assertInstanceOf(
             Map::class,
-            $bus(new IMap('string', SetInterface::class))
+            $bus(new IMap('string', 'callable'))
         );
         $this->assertInstanceOf(Enqueue::class, $enqueue);
         $this->assertInternalType('callable', $dequeue);
         $this->assertInstanceOf(
             Dequeue::class,
-            $dequeue($bus(new IMap('string', SetInterface::class)))
+            $dequeue($bus(new IMap('string', 'callable')))
         );
     }
 
@@ -46,19 +46,13 @@ class BootstrapTest extends TestCase
         $dequeue = $buses['dequeue'];
 
         $called = 0;
-        $listeners = (new IMap('string', SetInterface::class))
-            ->put('stdClass', Set::of(
-                'callable',
-                function() use ($enqueue): void {
-                    $enqueue($this);
-                }
-            ))
-            ->put(get_class($this), Set::of(
-                'callable',
-                static function() use (&$called): void {
-                    ++$called;
-                }
-            ));
+        $listeners = IMap::of('string', 'callable')
+            ('stdClass', function() use ($enqueue): void {
+                $enqueue($this);
+            })
+            (get_class($this), static function() use (&$called): void {
+                ++$called;
+            });
 
         $dispatch = $dequeue($bus($listeners));
         $this->assertSame($dispatch, $dispatch(new \stdClass));
