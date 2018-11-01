@@ -13,9 +13,9 @@ class NullEventBusTest extends TestCase
 {
     public function testInterface()
     {
-        $eb = new NullEventBus;
+        $dispath = new NullEventBus;
 
-        $this->assertInstanceOf(EventBusInterface::class, $eb);
-        $this->assertSame($eb, $eb->dispatch(new \stdClass));
+        $this->assertInstanceOf(EventBusInterface::class, $dispath);
+        $this->assertSame($dispath, $dispath(new \stdClass));
     }
 }

@@ -7,7 +7,7 @@ use Innmind\EventBus\Exception\InvalidArgumentException;
 
 final class NullEventBus implements EventBusInterface
 {
-    public function dispatch(object $event): EventBusInterface
+    public function __invoke(object $event): EventBusInterface
     {
         return $this;
     }

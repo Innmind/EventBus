@@ -22,11 +22,11 @@ class EnqueueEventBusTest extends TestCase
 
     public function testDispatch()
     {
-        $bus = new EnqueueEventBus($queue = new Queue);
+        $dispatch = new EnqueueEventBus($queue = new Queue);
 
         $event = new \stdClass;
 
-        $this->assertSame($bus, $bus->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
         $this->assertSame($event, $queue->dequeue());
     }
 }

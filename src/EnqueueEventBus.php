@@ -12,7 +12,7 @@ final class EnqueueEventBus implements EventBusInterface
         $this->queue = $queue;
     }
 
-    public function dispatch(object $event): EventBusInterface
+    public function __invoke(object $event): EventBusInterface
     {
         $this->queue->enqueue($event);
 

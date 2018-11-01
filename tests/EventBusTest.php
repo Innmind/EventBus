@@ -18,12 +18,12 @@ class EventBusTest extends TestCase
 {
     public function testInterface()
     {
-        $eb = new EventBus(
+        $bus = new EventBus(
             (new Map('string', SetInterface::class))
                 ->put('foo', new Set('callable'))
         );
 
-        $this->assertInstanceOf(EventBusInterface::class, $eb);
+        $this->assertInstanceOf(EventBusInterface::class, $bus);
     }
 
     /**
@@ -50,7 +50,7 @@ class EventBusTest extends TestCase
         $event = new class{};
         $eventClass = get_class($event);
         $count = 0;
-        $eb = new EventBus(
+        $dispatch = new EventBus(
             (new Map('string', SetInterface::class))
                 ->put(
                     $eventClass,
@@ -73,7 +73,7 @@ class EventBusTest extends TestCase
                 )
         );
 
-        $this->assertSame($eb, $eb->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
         $this->assertSame(1, $count);
     }
 
@@ -82,7 +82,7 @@ class EventBusTest extends TestCase
         $event = new class{};
         $eventClass = get_class($event);
         $count = 0;
-        $this->eb = new EventBus(
+        $this->dispatch = new EventBus(
             (new Map('string', SetInterface::class))
                 ->put(
                     $eventClass,
@@ -101,7 +101,7 @@ class EventBusTest extends TestCase
 
                                 public function __invoke($event) {
                                     ++$this->count;
-                                    $this->tester->eb->dispatch(new \stdClass);
+                                    ($this->tester->dispatch)(new \stdClass);
                                     $this->tester->assertSame(2, $this->count);
                                 }
                             }
@@ -131,16 +131,16 @@ class EventBusTest extends TestCase
                 )
         );
 
-        $this->assertSame($this->eb, $this->eb->dispatch($event));
+        $this->assertSame($this->dispatch, ($this->dispatch)($event));
         $this->assertSame(2, $count);
-        unset($this->eb);
+        unset($this->dispatch);
     }
 
     public function testDispatchWhenListeningToParentClass()
     {
         $event = new class extends \stdClass{};
         $count = 0;
-        $eb = new EventBus(
+        $dispatch = new EventBus(
             (new Map('string', SetInterface::class))
                 ->put(
                     'stdClass',
@@ -163,7 +163,7 @@ class EventBusTest extends TestCase
                 )
         );
 
-        $this->assertSame($eb, $eb->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
         $this->assertSame(1, $count);
     }
 
@@ -174,7 +174,7 @@ class EventBusTest extends TestCase
             public function getIterator() {}
         };
         $count = 0;
-        $eb = new EventBus(
+        $dispatch = new EventBus(
             (new Map('string', SetInterface::class))
                 ->put(
                     'IteratorAggregate',
@@ -197,7 +197,7 @@ class EventBusTest extends TestCase
                 )
         );
 
-        $this->assertSame($eb, $eb->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
         $this->assertSame(1, $count);
     }
 }

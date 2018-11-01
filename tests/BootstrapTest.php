@@ -50,7 +50,7 @@ class BootstrapTest extends TestCase
             ->put('stdClass', Set::of(
                 'callable',
                 function() use ($enqueue): void {
-                    $enqueue->dispatch($this);
+                    $enqueue($this);
                 }
             ))
             ->put(get_class($this), Set::of(
@@ -60,8 +60,8 @@ class BootstrapTest extends TestCase
                 }
             ));
 
-        $bus = $dequeue($bus($listeners));
-        $this->assertSame($bus, $bus->dispatch(new \stdClass));
+        $dispatch = $dequeue($bus($listeners));
+        $this->assertSame($dispatch, $dispatch(new \stdClass));
         $this->assertSame(1, $called);
     }
 }

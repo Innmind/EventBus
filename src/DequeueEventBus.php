@@ -5,21 +5,21 @@ namespace Innmind\EventBus;
 
 final class DequeueEventBus implements EventBusInterface
 {
-    private $bus;
+    private $dispatch;
     private $queue;
 
-    public function __construct(EventBusInterface $bus, Queue $queue)
+    public function __construct(EventBusInterface $dispatch, Queue $queue)
     {
-        $this->bus = $bus;
+        $this->dispatch = $dispatch;
         $this->queue = $queue;
     }
 
-    public function dispatch(object $event): EventBusInterface
+    public function __invoke(object $event): EventBusInterface
     {
-        $this->bus->dispatch($event);
+        ($this->dispatch)($event);
 
         while ($this->queue->valid()) {
-            $this->bus->dispatch($this->queue->dequeue());
+            ($this->dispatch)($this->queue->dequeue());
         }
 
         return $this;

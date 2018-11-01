@@ -40,7 +40,7 @@ final class EventBus implements EventBusInterface
         $this->extractor = $extractor ?? new InheritanceExtractor;
     }
 
-    public function dispatch(object $event): EventBusInterface
+    public function __invoke(object $event): EventBusInterface
     {
         $keys = ($this->extractor)($event);
         $keys->foreach(function(string $class) use ($event) {

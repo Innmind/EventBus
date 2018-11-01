@@ -5,5 +5,5 @@ namespace Innmind\EventBus;
 
 interface EventBusInterface
 {
-    public function dispatch(object $event): self;
+    public function __invoke(object $event): self;
 }

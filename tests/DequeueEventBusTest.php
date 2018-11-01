@@ -25,29 +25,29 @@ class DequeueEventBusTest extends TestCase
 
     public function testDispatchWithNoEnqueue()
     {
-        $bus = new DequeueEventBus(
+        $dispatch = new DequeueEventBus(
             $inner = $this->createMock(EventBusInterface::class),
             new Queue
         );
         $event = new \stdClass;
         $inner
             ->expects($this->once())
-            ->method('dispatch')
+            ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($bus, $bus->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
     }
 
     public function testDispatchWithEnqueue()
     {
-        $bus = new DequeueEventBus(
+        $dispatch = new DequeueEventBus(
             $inner = $this->createMock(EventBusInterface::class),
             $queue = new Queue
         );
         $event = new \stdClass;
         $inner
             ->expects($this->at(0))
-            ->method('dispatch')
+            ->method('__invoke')
             ->with($this->callback(function($event) use ($queue): bool {
                 $queue->enqueue($event);
 
@@ -55,9 +55,9 @@ class DequeueEventBusTest extends TestCase
             }));
         $inner
             ->expects($this->at(1))
-            ->method('dispatch')
+            ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($bus, $bus->dispatch($event));
+        $this->assertSame($dispatch, $dispatch($event));
     }
 }
