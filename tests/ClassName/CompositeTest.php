@@ -4,12 +4,12 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
+    Composite,
     Extractor,
-    Composite
 };
 use Innmind\Immutable\{
     SetInterface,
-    Set
+    Set,
 };
 use PHPUnit\Framework\TestCase;
 

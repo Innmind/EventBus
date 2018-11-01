@@ -4,13 +4,13 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
+    Inheritance,
     Extractor,
-    Inheritance
 };
 use Fixtures\Innmind\EventBus\{
     Foo,
     Bar,
-    BazInterface
+    BazInterface,
 };
 use Innmind\Immutable\SetInterface;
 use PHPUnit\Framework\TestCase;

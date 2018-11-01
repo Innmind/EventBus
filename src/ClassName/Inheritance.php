@@ -6,7 +6,7 @@ namespace Innmind\EventBus\ClassName;
 use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     SetInterface,
-    Set
+    Set,
 };
 
 final class Inheritance implements Extractor

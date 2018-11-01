@@ -5,7 +5,7 @@ namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
     EventBus\NullEventBus,
-    EventBus
+    EventBus,
 };
 use PHPUnit\Framework\TestCase;
 

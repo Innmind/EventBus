@@ -6,7 +6,7 @@ namespace Innmind\EventBus;
 use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     Stream,
-    StreamInterface
+    StreamInterface,
 };
 
 trait EventRecorder

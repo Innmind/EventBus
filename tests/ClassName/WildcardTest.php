@@ -4,8 +4,8 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
+    Wildcard,
     Extractor,
-    Wildcard
 };
 use Fixtures\Innmind\EventBus\Foo;
 use Innmind\Immutable\SetInterface;

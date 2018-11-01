@@ -5,7 +5,7 @@ namespace Innmind\EventBus\ClassName;
 
 use Innmind\Immutable\{
     SetInterface,
-    Set
+    Set,
 };
 
 final class Composite implements Extractor

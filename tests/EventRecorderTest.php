@@ -5,7 +5,7 @@ namespace Tests\Innmind\EventBus;
 
 use Innmind\EventBus\{
     EventRecorder,
-    ContainsRecordedEvents
+    ContainsRecordedEvents,
 };
 use Innmind\Immutable\StreamInterface;
 use PHPUnit\Framework\TestCase;

@@ -5,12 +5,12 @@ namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
     EventBus\Map,
-    EventBus as EventBusInterface
+    EventBus as EventBusInterface,
 };
 use Innmind\Immutable\{
     Map as IMap,
     SetInterface,
-    Set
+    Set,
 };
 use PHPUnit\Framework\TestCase;
 

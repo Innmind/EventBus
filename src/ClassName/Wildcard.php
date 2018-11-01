@@ -7,7 +7,7 @@ use Innmind\EventBus\Exception\InvalidArgumentException;
 use Innmind\Immutable\{
     SetInterface,
     Set,
-    Str
+    Str,
 };
 
 /**

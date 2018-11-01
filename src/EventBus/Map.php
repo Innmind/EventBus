@@ -7,12 +7,12 @@ use Innmind\EventBus\{
     EventBus as EventBusInterface,
     Exception\InvalidArgumentException,
     ClassName\Extractor,
-    ClassName\Inheritance
+    ClassName\Inheritance,
 };
 use Innmind\Immutable\{
     MapInterface,
     SetInterface,
-    Set
+    Set,
 };
 
 final class Map implements EventBusInterface
