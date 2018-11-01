@@ -10,14 +10,14 @@ use Innmind\Immutable\{
 
 trait EventRecorder
 {
-    private $domainEvents;
+    private $recordedEvents;
 
     /**
      * {@inheritdoc}
      */
     public function recordedEvents(): StreamInterface
     {
-        return $this->domainEvents ?? $this->domainEvents = Stream::of('object');
+        return $this->recordedEvents ?? $this->recordedEvents = Stream::of('object');
     }
 
     /**
@@ -25,12 +25,12 @@ trait EventRecorder
      */
     public function clearEvents(): void
     {
-        $this->domainEvents = new Stream('object');
+        $this->recordedEvents = new Stream('object');
     }
 
     protected function record(object $event): self
     {
-        $this->domainEvents = $this->recordedEvents()->add($event);
+        $this->recordedEvents = $this->recordedEvents()->add($event);
 
         return $this;
     }
