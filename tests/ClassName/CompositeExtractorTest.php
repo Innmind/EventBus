@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
-    ExtractorInterface,
+    Extractor,
     CompositeExtractor
 };
 use Innmind\Immutable\{
@@ -18,7 +18,7 @@ class CompositeExtractorTest extends TestCase
     public function testInterface()
     {
         $this->assertInstanceOf(
-            ExtractorInterface::class,
+            Extractor::class,
             new CompositeExtractor
         );
     }
@@ -26,8 +26,8 @@ class CompositeExtractorTest extends TestCase
     public function testExecution()
     {
         $extractor = new CompositeExtractor(
-            $mock1 = $this->createMock(ExtractorInterface::class),
-            $mock2 = $this->createMock(ExtractorInterface::class)
+            $mock1 = $this->createMock(Extractor::class),
+            $mock2 = $this->createMock(Extractor::class)
         );
         $event = new class{};
         $mock1

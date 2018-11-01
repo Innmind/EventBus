@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Innmind\EventBus;
+namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    EventBus,
-    EventBusInterface
+    EventBus\EventBus,
+    EventBus as EventBusInterface
 };
 use Innmind\Immutable\{
     Map,

@@ -9,7 +9,7 @@ use Innmind\Immutable\{
     Set
 };
 
-final class InheritanceExtractor implements ExtractorInterface
+final class InheritanceExtractor implements Extractor
 {
     public function __invoke(object $event): SetInterface
     {

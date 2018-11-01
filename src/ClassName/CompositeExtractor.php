@@ -8,11 +8,11 @@ use Innmind\Immutable\{
     Set
 };
 
-final class CompositeExtractor implements ExtractorInterface
+final class CompositeExtractor implements Extractor
 {
     private $extractors;
 
-    public function __construct(ExtractorInterface ...$extractors)
+    public function __construct(Extractor ...$extractors)
     {
         $this->extractors = $extractors;
     }

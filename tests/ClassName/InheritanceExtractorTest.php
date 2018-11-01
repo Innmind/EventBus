@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
-    ExtractorInterface,
+    Extractor,
     InheritanceExtractor
 };
 use Fixtures\Innmind\EventBus\{
@@ -20,7 +20,7 @@ class InheritanceExtractorTest extends TestCase
     public function testInterface()
     {
         $this->assertInstanceOf(
-            ExtractorInterface::class,
+            Extractor::class,
             new InheritanceExtractor
         );
     }

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Tests\Innmind\EventBus\ClassName;
 
 use Innmind\EventBus\ClassName\{
-    ExtractorInterface,
+    Extractor,
     WildcardExtractor
 };
 use Fixtures\Innmind\EventBus\Foo;
@@ -16,7 +16,7 @@ class WildcardExtractorTest extends TestCase
     public function testInterface()
     {
         $this->assertInstanceOf(
-            ExtractorInterface::class,
+            Extractor::class,
             new WildcardExtractor
         );
     }

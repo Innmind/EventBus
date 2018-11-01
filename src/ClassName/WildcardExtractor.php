@@ -16,7 +16,7 @@ use Innmind\Immutable\{
  * Domain\Event\*
  * Domain\*
  */
-final class WildcardExtractor implements ExtractorInterface
+final class WildcardExtractor implements Extractor
 {
     public function __invoke(object $event): SetInterface
     {

@@ -1,20 +1,25 @@
 <?php
 declare(strict_types = 1);
 
-namespace Innmind\EventBus;
+namespace Innmind\EventBus\EventBus;
 
-final class DequeueEventBus implements EventBusInterface
+use Innmind\EventBus\{
+    EventBus,
+    Queue,
+};
+
+final class DequeueEventBus implements EventBus
 {
     private $dispatch;
     private $queue;
 
-    public function __construct(EventBusInterface $dispatch, Queue $queue)
+    public function __construct(EventBus $dispatch, Queue $queue)
     {
         $this->dispatch = $dispatch;
         $this->queue = $queue;
     }
 
-    public function __invoke(object $event): EventBusInterface
+    public function __invoke(object $event): EventBus
     {
         ($this->dispatch)($event);
 

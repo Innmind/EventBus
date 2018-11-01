@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Innmind\EventBus;
+namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    EventBusInterface,
-    EnqueueEventBus,
+    EventBus\EnqueueEventBus,
+    EventBus,
     Queue,
 };
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ class EnqueueEventBusTest extends TestCase
     public function testInterface()
     {
         $this->assertInstanceOf(
-            EventBusInterface::class,
+            EventBus::class,
             new EnqueueEventBus(new Queue)
         );
     }

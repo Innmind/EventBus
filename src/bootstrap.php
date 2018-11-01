@@ -8,7 +8,7 @@ use Innmind\Immutable\MapInterface;
 /**
  * @param MapInterface<string, Innmind\Immutable\SetInterface<callable>> $listeners
  */
-function bootstrap(ClassName\ExtractorInterface $extractor = null): array
+function bootstrap(ClassName\Extractor $extractor = null): array
 {
     $extractor = $extractor ?? new ClassName\CompositeExtractor(
         new ClassName\InheritanceExtractor,
@@ -17,12 +17,12 @@ function bootstrap(ClassName\ExtractorInterface $extractor = null): array
     $queue = new Queue;
 
     return [
-        'bus' => static function (MapInterface $listeners) use ($extractor): EventBusInterface {
-            return new EventBus($listeners, $extractor);
+        'bus' => static function (MapInterface $listeners) use ($extractor): EventBus {
+            return new EventBus\EventBus($listeners, $extractor);
         },
-        'enqueue' => new EnqueueEventBus($queue),
-        'dequeue' => static function(EventBusInterface $bus) use ($queue): EventBusInterface {
-            return new DequeueEventBus($bus, $queue);
+        'enqueue' => new EventBus\EnqueueEventBus($queue),
+        'dequeue' => static function(EventBus $bus) use ($queue): EventBus {
+            return new EventBus\DequeueEventBus($bus, $queue);
         },
     ];
 }

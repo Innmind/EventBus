@@ -5,9 +5,9 @@ namespace Tests\Innmind\EventBus;
 
 use function Innmind\EventBus\bootstrap;
 use Innmind\EventBus\{
-    EventBus,
-    DequeueEventBus,
-    EnqueueEventBus,
+    EventBus\EventBus,
+    EventBus\DequeueEventBus,
+    EventBus\EnqueueEventBus,
 };
 use Innmind\Immutable\{
     Map,

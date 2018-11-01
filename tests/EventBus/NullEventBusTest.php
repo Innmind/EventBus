@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Innmind\EventBus;
+namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    NullEventBus,
-    EventBusInterface
+    EventBus\NullEventBus,
+    EventBus
 };
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ class NullEventBusTest extends TestCase
     {
         $dispath = new NullEventBus;
 
-        $this->assertInstanceOf(EventBusInterface::class, $dispath);
+        $this->assertInstanceOf(EventBus::class, $dispath);
         $this->assertSame($dispath, $dispath(new \stdClass));
     }
 }

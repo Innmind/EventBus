@@ -5,7 +5,7 @@ namespace Tests\Innmind\EventBus;
 
 use Innmind\EventBus\{
     EventRecorder,
-    ContainsRecordedEventsInterface
+    ContainsRecordedEvents
 };
 use Innmind\Immutable\StreamInterface;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ class EventRecorderTest extends TestCase
 {
     public function testInterface()
     {
-        $recorder = new class($this) implements ContainsRecordedEventsInterface
+        $recorder = new class($this) implements ContainsRecordedEvents
         {
             use EventRecorder;
 

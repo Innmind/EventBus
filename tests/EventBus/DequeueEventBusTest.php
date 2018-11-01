@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Innmind\EventBus;
+namespace Tests\Innmind\EventBus\EventBus;
 
 use Innmind\EventBus\{
-    EventBusInterface,
-    DequeueEventBus,
+    EventBus\DequeueEventBus,
+    EventBus,
     Queue,
 };
 use PHPUnit\Framework\TestCase;
@@ -15,9 +15,9 @@ class DequeueEventBusTest extends TestCase
     public function testInterface()
     {
         $this->assertInstanceOf(
-            EventBusInterface::class,
+            EventBus::class,
             new DequeueEventBus(
-                $this->createMock(EventBusInterface::class),
+                $this->createMock(EventBus::class),
                 new Queue
             )
         );
@@ -26,7 +26,7 @@ class DequeueEventBusTest extends TestCase
     public function testDispatchWithNoEnqueue()
     {
         $dispatch = new DequeueEventBus(
-            $inner = $this->createMock(EventBusInterface::class),
+            $inner = $this->createMock(EventBus::class),
             new Queue
         );
         $event = new \stdClass;
@@ -41,7 +41,7 @@ class DequeueEventBusTest extends TestCase
     public function testDispatchWithEnqueue()
     {
         $dispatch = new DequeueEventBus(
-            $inner = $this->createMock(EventBusInterface::class),
+            $inner = $this->createMock(EventBus::class),
             $queue = new Queue
         );
         $event = new \stdClass;

@@ -5,7 +5,7 @@ namespace Innmind\EventBus\ClassName;
 
 use Innmind\Immutable\SetInterface;
 
-interface ExtractorInterface
+interface Extractor
 {
     /**
      * @return SetInterface<string>
