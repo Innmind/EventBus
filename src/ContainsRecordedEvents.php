@@ -3,17 +3,14 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\Immutable\StreamInterface;
+use Innmind\Immutable\Sequence;
 
 interface ContainsRecordedEvents
 {
     /**
-     * @return StreamInterface<object>
+     * @return Sequence<object>
      */
-    public function recordedEvents(): StreamInterface;
+    public function recordedEvents(): Sequence;
 
-    /**
-     * @return void
-     */
     public function clearEvents(): void;
 }

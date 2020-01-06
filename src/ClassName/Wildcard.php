@@ -4,10 +4,10 @@ declare(strict_types = 1);
 namespace Innmind\EventBus\ClassName;
 
 use Innmind\Immutable\{
-    SetInterface,
     Set,
     Str,
 };
+use function Innmind\Immutable\join;
 
 /**
  * Transform the given event fqcn Domain\Event\Foo\Bar into the given set
@@ -17,16 +17,17 @@ use Innmind\Immutable\{
  */
 final class Wildcard implements Extractor
 {
-    public function __invoke(object $event): SetInterface
+    public function __invoke(object $event): Set
     {
-        $set = new Set('string');
-        $fqcn = (new Str(get_class($event)))
+        $set = Set::strings();
+        $fqcn = Str::of(\get_class($event))
             ->split('\\')
-            ->dropEnd(1);
+            ->dropEnd(1)
+            ->mapTo('string', fn(Str $part): string => $part->toString());
 
         while ($fqcn->count() > 0) {
-            $set = $set->add(
-                $fqcn->join('\\').'\*'
+            $set = ($set)(
+                join('\\', $fqcn)->append('\*')->toString(),
             );
             $fqcn = $fqcn->dropEnd(1);
         }

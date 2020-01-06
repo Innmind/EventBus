@@ -3,25 +3,22 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus\ClassName;
 
-use Innmind\Immutable\{
-    SetInterface,
-    Set,
-};
+use Innmind\Immutable\Set;
 
 final class Inheritance implements Extractor
 {
-    public function __invoke(object $event): SetInterface
+    public function __invoke(object $event): Set
     {
-        $classes = (new Set('string'))->add(get_class($event));
-        $refl = new \ReflectionClass($classes->current());
+        $classes = Set::strings($class = \get_class($event));
+        $refl = new \ReflectionClass($class);
         $interfaces = $refl->getInterfaceNames();
 
         foreach ($interfaces as $interface) {
-            $classes = $classes->add($interface);
+            $classes = ($classes)($interface);
         }
 
         while (($refl = $refl->getParentClass()) !== false) {
-            $classes = $classes->add($refl->getName());
+            $classes = ($classes)($refl->getName());
         }
 
         return $classes;

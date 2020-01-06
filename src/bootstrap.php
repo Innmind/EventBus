@@ -3,21 +3,21 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\Immutable\MapInterface;
+use Innmind\Immutable\Map;
 
 /**
- * @param MapInterface<string, callable> $listeners
+ * @param Map<string, callable> $listeners
  */
 function bootstrap(ClassName\Extractor $extractor = null): array
 {
     $extractor = $extractor ?? new ClassName\Composite(
         new ClassName\Inheritance,
-        new ClassName\Wildcard
+        new ClassName\Wildcard,
     );
     $queue = new Queue;
 
     return [
-        'bus' => static function (MapInterface $listeners) use ($extractor): EventBus {
+        'bus' => static function (Map $listeners) use ($extractor): EventBus {
             return new EventBus\Map($listeners, $extractor);
         },
         'enqueue' => new EventBus\Enqueue($queue),

@@ -8,33 +8,28 @@ use Innmind\EventBus\{
     ClassName\Extractor,
     ClassName\Inheritance,
 };
-use Innmind\Immutable\{
-    MapInterface,
-    SetInterface,
-    Set,
-};
+use Innmind\Immutable\Map as IMap;
+use function Innmind\Immutable\assertMap;
 
 final class Map implements EventBusInterface
 {
-    private $listeners;
-    private $extractor;
+    /** @var IMap<string, callable> */
+    private IMap $listeners;
+    private Extractor $extractor;
 
+    /** @var IMap<string, callable> $listeners */
     public function __construct(
-        MapInterface $listeners,
+        IMap $listeners,
         Extractor $extractor = null
     ) {
-        if (
-            (string) $listeners->keyType() !== 'string' ||
-            (string) $listeners->valueType() !== 'callable'
-        ) {
-            throw new \TypeError('Argument 1 must be of type MapInterface<string, callable>');
-        }
+        assertMap('string', 'callable', $listeners, 1);
 
+        /** @var IMap<string, callable> */
         $this->listeners = $listeners;
         $this->extractor = $extractor ?? new Inheritance;
     }
 
-    public function __invoke(object $event): EventBusInterface
+    public function __invoke(object $event): void
     {
         $keys = ($this->extractor)($event);
         $keys->foreach(function(string $class) use ($event): void {
@@ -44,7 +39,5 @@ final class Map implements EventBusInterface
                 $listen($event);
             }
         });
-
-        return $this;
     }
 }

@@ -1,10 +1,9 @@
 # EventBus
 
-| `master` | `develop` |
-|----------|-----------|
-| [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Innmind/EventBus/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Innmind/EventBus/?branch=master) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Innmind/EventBus/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Innmind/EventBus/?branch=develop) |
-| [![Code Coverage](https://scrutinizer-ci.com/g/Innmind/EventBus/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Innmind/EventBus/?branch=master) | [![Code Coverage](https://scrutinizer-ci.com/g/Innmind/EventBus/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Innmind/EventBus/?branch=develop) |
-| [![Build Status](https://scrutinizer-ci.com/g/Innmind/EventBus/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Innmind/EventBus/build-status/master) | [![Build Status](https://scrutinizer-ci.com/g/Innmind/EventBus/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Innmind/EventBus/build-status/develop) |
+| `develop` |
+|-----------|
+| [![codecov](https://codecov.io/gh/Innmind/EventBus/branch/develop/graph/badge.svg)](https://codecov.io/gh/Innmind/EventBus) |
+| [![Build Status](https://github.com/Innmind/EventBus/workflows/CI/badge.svg)](https://github.com/Innmind/EventBus/actions?query=workflow%3ACI) |
 
 Simple library to dispatch events to listeners; with the particularity that you can't order your listeners, listeners can't modify the event, listeners can't stop other listeners to be called and the event must be an object.
 

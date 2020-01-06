@@ -16,7 +16,7 @@ class EnqueueTest extends TestCase
     {
         $this->assertInstanceOf(
             EventBus::class,
-            new Enqueue(new Queue)
+            new Enqueue(new Queue),
         );
     }
 
@@ -26,7 +26,7 @@ class EnqueueTest extends TestCase
 
         $event = new \stdClass;
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame($event, $queue->dequeue());
     }
 }

@@ -7,8 +7,7 @@ use Innmind\EventBus\EventBus;
 
 final class NullEventBus implements EventBus
 {
-    public function __invoke(object $event): EventBus
+    public function __invoke(object $event): void
     {
-        return $this;
     }
 }

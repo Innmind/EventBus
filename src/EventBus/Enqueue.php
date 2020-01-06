@@ -10,17 +10,15 @@ use Innmind\EventBus\{
 
 final class Enqueue implements EventBus
 {
-    private $queue;
+    private Queue $queue;
 
     public function __construct(Queue $queue)
     {
         $this->queue = $queue;
     }
 
-    public function __invoke(object $event): EventBus
+    public function __invoke(object $event): void
     {
         $this->queue->enqueue($event);
-
-        return $this;
     }
 }

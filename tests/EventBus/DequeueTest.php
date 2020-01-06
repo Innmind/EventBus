@@ -18,7 +18,7 @@ class DequeueTest extends TestCase
             EventBus::class,
             new Dequeue(
                 $this->createMock(EventBus::class),
-                new Queue
+                new Queue,
             )
         );
     }
@@ -27,7 +27,7 @@ class DequeueTest extends TestCase
     {
         $dispatch = new Dequeue(
             $inner = $this->createMock(EventBus::class),
-            new Queue
+            new Queue,
         );
         $event = new \stdClass;
         $inner
@@ -35,14 +35,14 @@ class DequeueTest extends TestCase
             ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
     }
 
     public function testDispatchWithEnqueue()
     {
         $dispatch = new Dequeue(
             $inner = $this->createMock(EventBus::class),
-            $queue = new Queue
+            $queue = new Queue,
         );
         $event = new \stdClass;
         $inner
@@ -58,6 +58,6 @@ class DequeueTest extends TestCase
             ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
     }
 }

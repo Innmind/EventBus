@@ -16,6 +16,6 @@ class NullEventBusTest extends TestCase
         $dispath = new NullEventBus;
 
         $this->assertInstanceOf(EventBus::class, $dispath);
-        $this->assertSame($dispath, $dispath(new \stdClass));
+        $this->assertNull($dispath(new \stdClass));
     }
 }

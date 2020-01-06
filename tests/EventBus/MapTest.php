@@ -15,7 +15,7 @@ class MapTest extends TestCase
     public function testInterface()
     {
         $bus = new Map(
-            new IMap('string', 'callable')
+            IMap::of('string', 'callable')
         );
 
         $this->assertInstanceOf(EventBusInterface::class, $bus);
@@ -24,9 +24,9 @@ class MapTest extends TestCase
     public function testThrowWhenInvalidListenersMapGiven()
     {
         $this->expectException(\TypeError::class);
-        $this->expectExceptionMessage('Argument 1 must be of type MapInterface<string, callable>');
+        $this->expectExceptionMessage('Argument 1 must be of type Map<string, callable>');
 
-        new Map(new IMap('string', 'array'));
+        new Map(IMap::of('string', 'array'));
     }
 
     public function testDispatch()
@@ -51,7 +51,7 @@ class MapTest extends TestCase
                 ($eventClass, $listener)
         );
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame(1, $count);
     }
 
@@ -97,7 +97,7 @@ class MapTest extends TestCase
                 ('stdClass', $listener)
         );
 
-        $this->assertSame($this->dispatch, ($this->dispatch)($event));
+        $this->assertNull(($this->dispatch)($event));
         $this->assertSame(2, $count);
         unset($this->dispatch);
     }
@@ -123,7 +123,7 @@ class MapTest extends TestCase
                 ('stdClass', $listener)
         );
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame(1, $count);
     }
 
@@ -151,7 +151,7 @@ class MapTest extends TestCase
                 ('IteratorAggregate', $listener)
         );
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame(1, $count);
     }
 }

@@ -9,11 +9,7 @@ use Innmind\EventBus\{
     EventBus\Dequeue,
     EventBus\Enqueue,
 };
-use Innmind\Immutable\{
-    Map as IMap,
-    SetInterface,
-    Set,
-};
+use Innmind\Immutable\Map as IMap;
 use PHPUnit\Framework\TestCase;
 
 class BootstrapTest extends TestCase
@@ -25,16 +21,16 @@ class BootstrapTest extends TestCase
         $enqueue = $buses['enqueue'];
         $dequeue = $buses['dequeue'];
 
-        $this->assertInternalType('callable', $bus);
+        $this->assertIsCallable($bus);
         $this->assertInstanceOf(
             Map::class,
-            $bus(new IMap('string', 'callable'))
+            $bus(IMap::of('string', 'callable'))
         );
         $this->assertInstanceOf(Enqueue::class, $enqueue);
-        $this->assertInternalType('callable', $dequeue);
+        $this->assertIsCallable($dequeue);
         $this->assertInstanceOf(
             Dequeue::class,
-            $dequeue($bus(new IMap('string', 'callable')))
+            $dequeue($bus(IMap::of('string', 'callable')))
         );
     }
 
@@ -55,7 +51,7 @@ class BootstrapTest extends TestCase
             });
 
         $dispatch = $dequeue($bus($listeners));
-        $this->assertSame($dispatch, $dispatch(new \stdClass));
+        $this->assertNull($dispatch(new \stdClass));
         $this->assertSame(1, $called);
     }
 }
