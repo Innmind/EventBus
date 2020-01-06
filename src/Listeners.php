@@ -5,7 +5,7 @@ namespace Innmind\EventBus;
 
 final class Listeners
 {
-    private $listeners;
+    private array $listeners;
 
     public function __construct(callable ...$listeners)
     {

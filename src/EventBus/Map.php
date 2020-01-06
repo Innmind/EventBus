@@ -16,8 +16,8 @@ use Innmind\Immutable\{
 
 final class Map implements EventBusInterface
 {
-    private $listeners;
-    private $extractor;
+    private MapInterface $listeners;
+    private Extractor $extractor;
 
     public function __construct(
         MapInterface $listeners,

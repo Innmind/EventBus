@@ -10,7 +10,7 @@ use Innmind\EventBus\{
 
 final class Enqueue implements EventBus
 {
-    private $queue;
+    private Queue $queue;
 
     public function __construct(Queue $queue)
     {

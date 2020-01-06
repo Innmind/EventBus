@@ -10,8 +10,8 @@ use Innmind\EventBus\{
 
 final class Dequeue implements EventBus
 {
-    private $dispatch;
-    private $queue;
+    private EventBus $dispatch;
+    private Queue $queue;
 
     public function __construct(EventBus $dispatch, Queue $queue)
     {

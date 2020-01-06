@@ -10,7 +10,7 @@ use Innmind\Immutable\{
 
 final class Composite implements Extractor
 {
-    private $extractors;
+    private array $extractors;
 
     public function __construct(Extractor ...$extractors)
     {

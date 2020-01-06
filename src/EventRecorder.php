@@ -10,7 +10,7 @@ use Innmind\Immutable\{
 
 trait EventRecorder
 {
-    private $recordedEvents;
+    private StreamInterface $recordedEvents;
 
     /**
      * {@inheritdoc}
