@@ -26,7 +26,7 @@ final class Map implements EventBusInterface
         $this->extractor = $extractor ?? new Inheritance;
     }
 
-    public function __invoke(object $event): EventBusInterface
+    public function __invoke(object $event): void
     {
         $keys = ($this->extractor)($event);
         $keys->foreach(function(string $class) use ($event): void {
@@ -36,7 +36,5 @@ final class Map implements EventBusInterface
                 $listen($event);
             }
         });
-
-        return $this;
     }
 }

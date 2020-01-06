@@ -19,14 +19,12 @@ final class Dequeue implements EventBus
         $this->queue = $queue;
     }
 
-    public function __invoke(object $event): EventBus
+    public function __invoke(object $event): void
     {
         ($this->dispatch)($event);
 
         while ($this->queue->valid()) {
             ($this->dispatch)($this->queue->dequeue());
         }
-
-        return $this;
     }
 }

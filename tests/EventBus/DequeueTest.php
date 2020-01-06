@@ -35,7 +35,7 @@ class DequeueTest extends TestCase
             ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
     }
 
     public function testDispatchWithEnqueue()
@@ -58,6 +58,6 @@ class DequeueTest extends TestCase
             ->method('__invoke')
             ->with($event);
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
     }
 }

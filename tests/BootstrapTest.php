@@ -51,7 +51,7 @@ class BootstrapTest extends TestCase
             });
 
         $dispatch = $dequeue($bus($listeners));
-        $this->assertSame($dispatch, $dispatch(new \stdClass));
+        $this->assertNull($dispatch(new \stdClass));
         $this->assertSame(1, $called);
     }
 }

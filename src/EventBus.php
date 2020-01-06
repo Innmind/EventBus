@@ -5,5 +5,5 @@ namespace Innmind\EventBus;
 
 interface EventBus
 {
-    public function __invoke(object $event): self;
+    public function __invoke(object $event): void;
 }

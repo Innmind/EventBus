@@ -51,7 +51,7 @@ class MapTest extends TestCase
                 ($eventClass, $listener)
         );
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame(1, $count);
     }
 
@@ -97,7 +97,7 @@ class MapTest extends TestCase
                 ('stdClass', $listener)
         );
 
-        $this->assertSame($this->dispatch, ($this->dispatch)($event));
+        $this->assertNull(($this->dispatch)($event));
         $this->assertSame(2, $count);
         unset($this->dispatch);
     }
@@ -123,7 +123,7 @@ class MapTest extends TestCase
                 ('stdClass', $listener)
         );
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame(1, $count);
     }
 
@@ -151,7 +151,7 @@ class MapTest extends TestCase
                 ('IteratorAggregate', $listener)
         );
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame(1, $count);
     }
 }

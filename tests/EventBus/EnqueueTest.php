@@ -26,7 +26,7 @@ class EnqueueTest extends TestCase
 
         $event = new \stdClass;
 
-        $this->assertSame($dispatch, $dispatch($event));
+        $this->assertNull($dispatch($event));
         $this->assertSame($event, $queue->dequeue());
     }
 }
