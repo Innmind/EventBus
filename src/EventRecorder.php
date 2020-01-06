@@ -25,10 +25,8 @@ trait EventRecorder
         $this->recordedEvents = Sequence::objects();
     }
 
-    protected function record(object $event): self
+    protected function record(object $event): void
     {
         $this->recordedEvents = $this->recordedEvents()->add($event);
-
-        return $this;
     }
 }

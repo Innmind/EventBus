@@ -27,9 +27,8 @@ class EventRecorderTest extends TestCase
 
             public function trigger()
             {
-                $this->tester->assertSame(
-                    $this,
-                    $this->record(new \stdClass)
+                $this->tester->assertNull(
+                    $this->record(new \stdClass),
                 );
             }
         };
