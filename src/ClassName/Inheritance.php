@@ -14,11 +14,11 @@ final class Inheritance implements Extractor
         $interfaces = $refl->getInterfaceNames();
 
         foreach ($interfaces as $interface) {
-            $classes = $classes->add($interface);
+            $classes = ($classes)($interface);
         }
 
         while (($refl = $refl->getParentClass()) !== false) {
-            $classes = $classes->add($refl->getName());
+            $classes = ($classes)($refl->getName());
         }
 
         return $classes;

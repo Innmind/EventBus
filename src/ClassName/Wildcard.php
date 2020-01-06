@@ -26,7 +26,7 @@ final class Wildcard implements Extractor
             ->mapTo('string', fn(Str $part): string => $part->toString());
 
         while ($fqcn->count() > 0) {
-            $set = $set->add(
+            $set = ($set)(
                 join('\\', $fqcn)->append('\*')->toString(),
             );
             $fqcn = $fqcn->dropEnd(1);

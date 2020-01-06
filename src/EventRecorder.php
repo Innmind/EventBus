@@ -27,6 +27,6 @@ trait EventRecorder
 
     protected function record(object $event): void
     {
-        $this->recordedEvents = $this->recordedEvents()->add($event);
+        $this->recordedEvents = ($this->recordedEvents())($event);
     }
 }
