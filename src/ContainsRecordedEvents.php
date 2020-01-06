@@ -12,8 +12,5 @@ interface ContainsRecordedEvents
      */
     public function recordedEvents(): Sequence;
 
-    /**
-     * @return void
-     */
     public function clearEvents(): void;
 }
