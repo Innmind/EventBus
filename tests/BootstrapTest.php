@@ -21,13 +21,13 @@ class BootstrapTest extends TestCase
         $enqueue = $buses['enqueue'];
         $dequeue = $buses['dequeue'];
 
-        $this->assertInternalType('callable', $bus);
+        $this->assertIsCallable($bus);
         $this->assertInstanceOf(
             Map::class,
             $bus(IMap::of('string', 'callable'))
         );
         $this->assertInstanceOf(Enqueue::class, $enqueue);
-        $this->assertInternalType('callable', $dequeue);
+        $this->assertIsCallable($dequeue);
         $this->assertInstanceOf(
             Dequeue::class,
             $dequeue($bus(IMap::of('string', 'callable')))
