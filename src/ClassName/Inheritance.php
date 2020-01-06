@@ -3,14 +3,11 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus\ClassName;
 
-use Innmind\Immutable\{
-    SetInterface,
-    Set,
-};
+use Innmind\Immutable\Set;
 
 final class Inheritance implements Extractor
 {
-    public function __invoke(object $event): SetInterface
+    public function __invoke(object $event): Set
     {
         $classes = Set::of('string', $class = \get_class($event));
         $refl = new \ReflectionClass($class);

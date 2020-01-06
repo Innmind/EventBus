@@ -7,10 +7,8 @@ use Innmind\EventBus\ClassName\{
     Composite,
     Extractor,
 };
-use Innmind\Immutable\{
-    SetInterface,
-    Set,
-};
+use Innmind\Immutable\Set;
+use function Innmind\Immutable\unwrap;
 use PHPUnit\Framework\TestCase;
 
 class CompositeTest extends TestCase
@@ -34,18 +32,18 @@ class CompositeTest extends TestCase
             ->expects($this->once())
             ->method('__invoke')
             ->with($event)
-            ->willReturn((new Set('string'))->add('foo')->add('bar'));
+            ->willReturn(Set::strings('foo', 'bar'));
         $mock2
             ->expects($this->once())
             ->method('__invoke')
             ->with($event)
-            ->willReturn((new Set('string'))->add('bar')->add('baz'));
+            ->willReturn(Set::strings('bar', 'baz'));
 
         $set = $extractor($event);
 
-        $this->assertInstanceOf(SetInterface::class, $set);
-        $this->assertSame('string', (string) $set->type());
+        $this->assertInstanceOf(Set::class, $set);
+        $this->assertSame('string', $set->type());
         $this->assertCount(3, $set);
-        $this->assertSame(['foo', 'bar', 'baz'], $set->toPrimitive());
+        $this->assertSame(['foo', 'bar', 'baz'], unwrap($set));
     }
 }

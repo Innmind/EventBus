@@ -3,21 +3,18 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus;
 
-use Innmind\Immutable\{
-    Stream,
-    StreamInterface,
-};
+use Innmind\Immutable\Sequence;
 
 trait EventRecorder
 {
-    private StreamInterface $recordedEvents;
+    private Sequence $recordedEvents;
 
     /**
      * {@inheritdoc}
      */
-    public function recordedEvents(): StreamInterface
+    public function recordedEvents(): Sequence
     {
-        return $this->recordedEvents ?? $this->recordedEvents = Stream::of('object');
+        return $this->recordedEvents ?? $this->recordedEvents = Sequence::objects();
     }
 
     /**
@@ -25,7 +22,7 @@ trait EventRecorder
      */
     public function clearEvents(): void
     {
-        $this->recordedEvents = new Stream('object');
+        $this->recordedEvents = Sequence::objects();
     }
 
     protected function record(object $event): self

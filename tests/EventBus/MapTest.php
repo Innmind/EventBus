@@ -15,7 +15,7 @@ class MapTest extends TestCase
     public function testInterface()
     {
         $bus = new Map(
-            new IMap('string', 'callable')
+            IMap::of('string', 'callable')
         );
 
         $this->assertInstanceOf(EventBusInterface::class, $bus);
@@ -24,9 +24,9 @@ class MapTest extends TestCase
     public function testThrowWhenInvalidListenersMapGiven()
     {
         $this->expectException(\TypeError::class);
-        $this->expectExceptionMessage('Argument 1 must be of type MapInterface<string, callable>');
+        $this->expectExceptionMessage('Argument 1 must be of type Map<string, callable>');
 
-        new Map(new IMap('string', 'array'));
+        new Map(IMap::of('string', 'array'));
     }
 
     public function testDispatch()

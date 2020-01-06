@@ -12,7 +12,8 @@ use Fixtures\Innmind\EventBus\{
     Bar,
     BazInterface,
 };
-use Innmind\Immutable\SetInterface;
+use Innmind\Immutable\Set;
+use function Innmind\Immutable\unwrap;
 use PHPUnit\Framework\TestCase;
 
 class InheritanceTest extends TestCase
@@ -21,7 +22,7 @@ class InheritanceTest extends TestCase
     {
         $this->assertInstanceOf(
             Extractor::class,
-            new Inheritance
+            new Inheritance,
         );
     }
 
@@ -29,12 +30,12 @@ class InheritanceTest extends TestCase
     {
         $set = (new Inheritance)(new Foo);
 
-        $this->assertInstanceOf(SetInterface::class, $set);
-        $this->assertSame('string', (string) $set->type());
+        $this->assertInstanceOf(Set::class, $set);
+        $this->assertSame('string', $set->type());
         $this->assertCount(3, $set);
         $this->assertSame(
             [Foo::class, BazInterface::class, Bar::class],
-            $set->toPrimitive()
+            unwrap($set),
         );
     }
 }

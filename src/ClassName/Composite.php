@@ -3,10 +3,7 @@ declare(strict_types = 1);
 
 namespace Innmind\EventBus\ClassName;
 
-use Innmind\Immutable\{
-    SetInterface,
-    Set,
-};
+use Innmind\Immutable\Set;
 
 final class Composite implements Extractor
 {
@@ -17,9 +14,9 @@ final class Composite implements Extractor
         $this->extractors = $extractors;
     }
 
-    public function __invoke(object $event): SetInterface
+    public function __invoke(object $event): Set
     {
-        $set = Set::of('string');
+        $set = Set::strings();
 
         foreach ($this->extractors as $extractor) {
             $set = $set->merge($extractor($event));

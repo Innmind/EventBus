@@ -8,7 +8,8 @@ use Innmind\EventBus\ClassName\{
     Extractor,
 };
 use Fixtures\Innmind\EventBus\Foo;
-use Innmind\Immutable\SetInterface;
+use Innmind\Immutable\Set;
+use function Innmind\Immutable\unwrap;
 use PHPUnit\Framework\TestCase;
 
 class WildcardTest extends TestCase
@@ -25,12 +26,12 @@ class WildcardTest extends TestCase
     {
         $set = (new Wildcard)(new Foo);
 
-        $this->assertInstanceOf(SetInterface::class, $set);
-        $this->assertSame('string', (string) $set->type());
+        $this->assertInstanceOf(Set::class, $set);
+        $this->assertSame('string', $set->type());
         $this->assertCount(3, $set);
         $this->assertSame(
             ['Fixtures\Innmind\EventBus\*', 'Fixtures\Innmind\*', 'Fixtures\*'],
-            $set->toPrimitive()
+            unwrap($set),
         );
     }
 }

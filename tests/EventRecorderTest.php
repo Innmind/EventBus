@@ -7,7 +7,7 @@ use Innmind\EventBus\{
     EventRecorder,
     ContainsRecordedEvents,
 };
-use Innmind\Immutable\StreamInterface;
+use Innmind\Immutable\Sequence;
 use PHPUnit\Framework\TestCase;
 
 class EventRecorderTest extends TestCase
@@ -35,10 +35,10 @@ class EventRecorderTest extends TestCase
         };
 
         $recorder->trigger();
-        $this->assertInstanceOf(StreamInterface::class, $recorder->recordedEvents());
-        $this->assertSame('object', (string) $recorder->recordedEvents()->type());
+        $this->assertInstanceOf(Sequence::class, $recorder->recordedEvents());
+        $this->assertSame('object', $recorder->recordedEvents()->type());
         $this->assertSame(1, $recorder->recordedEvents()->size());
-        $this->assertInstanceOf('stdClass', $recorder->recordedEvents()->current());
+        $this->assertInstanceOf('stdClass', $recorder->recordedEvents()->first());
         $this->assertSame(null, $recorder->clearEvents());
         $this->assertSame(0, $recorder->recordedEvents()->size());
     }
