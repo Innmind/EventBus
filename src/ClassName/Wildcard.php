@@ -19,8 +19,8 @@ final class Wildcard implements Extractor
 {
     public function __invoke(object $event): SetInterface
     {
-        $set = new Set('string');
-        $fqcn = (new Str(get_class($event)))
+        $set = Set::of('string');
+        $fqcn = Str::of(\get_class($event))
             ->split('\\')
             ->dropEnd(1);
 

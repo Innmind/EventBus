@@ -12,7 +12,7 @@ function bootstrap(ClassName\Extractor $extractor = null): array
 {
     $extractor = $extractor ?? new ClassName\Composite(
         new ClassName\Inheritance,
-        new ClassName\Wildcard
+        new ClassName\Wildcard,
     );
     $queue = new Queue;
 

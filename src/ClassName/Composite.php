@@ -19,7 +19,7 @@ final class Composite implements Extractor
 
     public function __invoke(object $event): SetInterface
     {
-        $set = new Set('string');
+        $set = Set::of('string');
 
         foreach ($this->extractors as $extractor) {
             $set = $set->merge($extractor($event));

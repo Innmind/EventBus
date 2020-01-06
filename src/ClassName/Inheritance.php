@@ -12,8 +12,8 @@ final class Inheritance implements Extractor
 {
     public function __invoke(object $event): SetInterface
     {
-        $classes = (new Set('string'))->add(get_class($event));
-        $refl = new \ReflectionClass($classes->current());
+        $classes = Set::of('string', $class = \get_class($event));
+        $refl = new \ReflectionClass($class);
         $interfaces = $refl->getInterfaceNames();
 
         foreach ($interfaces as $interface) {
