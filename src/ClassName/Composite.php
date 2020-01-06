@@ -7,6 +7,7 @@ use Innmind\Immutable\Set;
 
 final class Composite implements Extractor
 {
+    /** @var list<Extractor> */
     private array $extractors;
 
     public function __construct(Extractor ...$extractors)

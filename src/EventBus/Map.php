@@ -13,15 +13,18 @@ use function Innmind\Immutable\assertMap;
 
 final class Map implements EventBusInterface
 {
+    /** @var IMap<string, callable> */
     private IMap $listeners;
     private Extractor $extractor;
 
+    /** @var IMap<string, callable> $listeners */
     public function __construct(
         IMap $listeners,
         Extractor $extractor = null
     ) {
         assertMap('string', 'callable', $listeners, 1);
 
+        /** @var IMap<string, callable> */
         $this->listeners = $listeners;
         $this->extractor = $extractor ?? new Inheritance;
     }

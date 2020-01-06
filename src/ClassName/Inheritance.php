@@ -9,7 +9,7 @@ final class Inheritance implements Extractor
 {
     public function __invoke(object $event): Set
     {
-        $classes = Set::of('string', $class = \get_class($event));
+        $classes = Set::strings($class = \get_class($event));
         $refl = new \ReflectionClass($class);
         $interfaces = $refl->getInterfaceNames();
 
