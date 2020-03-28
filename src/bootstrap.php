@@ -7,6 +7,8 @@ use Innmind\Immutable\Map;
 
 /**
  * @param Map<string, callable> $listeners
+ *
+ * @return array{bus: callable(Map<string, callable>): EventBus, enqueue: EventBus, dequeue: callable(EventBus): EventBus}
  */
 function bootstrap(ClassName\Extractor $extractor = null): array
 {
