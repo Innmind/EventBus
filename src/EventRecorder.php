@@ -7,14 +7,14 @@ use Innmind\Immutable\Sequence;
 
 trait EventRecorder
 {
-    private Sequence $recordedEvents;
+    private ?Sequence $recordedEvents = null;
 
     /**
      * {@inheritdoc}
      */
     public function recordedEvents(): Sequence
     {
-        return $this->recordedEvents ?? $this->recordedEvents = Sequence::objects();
+        return $this->recordedEvents ??= Sequence::objects();
     }
 
     /**
