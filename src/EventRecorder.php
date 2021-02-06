@@ -9,17 +9,11 @@ trait EventRecorder
 {
     private ?Sequence $recordedEvents = null;
 
-    /**
-     * {@inheritdoc}
-     */
     public function recordedEvents(): Sequence
     {
         return $this->recordedEvents ??= Sequence::objects();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clearEvents(): void
     {
         $this->recordedEvents = Sequence::objects();

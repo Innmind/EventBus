@@ -23,7 +23,7 @@ final class Wildcard implements Extractor
         $fqcn = Str::of(\get_class($event))
             ->split('\\')
             ->dropEnd(1)
-            ->mapTo('string', fn(Str $part): string => $part->toString());
+            ->mapTo('string', static fn(Str $part): string => $part->toString());
 
         while ($fqcn->count() > 0) {
             $set = ($set)(

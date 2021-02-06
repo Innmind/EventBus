@@ -46,17 +46,16 @@ class DequeueTest extends TestCase
         );
         $event = new \stdClass;
         $inner
-            ->expects($this->at(0))
+            ->expects($this->exactly(2))
             ->method('__invoke')
-            ->with($this->callback(function($event) use ($queue): bool {
-                $queue->enqueue($event);
+            ->withConsecutive(
+                [$this->callback(static function($event) use ($queue): bool {
+                    $queue->enqueue($event);
 
-                return true;
-            }));
-        $inner
-            ->expects($this->at(1))
-            ->method('__invoke')
-            ->with($event);
+                    return true;
+                })],
+                [$event],
+            );
 
         $this->assertNull($dispatch($event));
     }

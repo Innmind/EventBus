@@ -27,7 +27,8 @@ class CompositeTest extends TestCase
             $mock1 = $this->createMock(Extractor::class),
             $mock2 = $this->createMock(Extractor::class)
         );
-        $event = new class{};
+        $event = new class {
+        };
         $mock1
             ->expects($this->once())
             ->method('__invoke')

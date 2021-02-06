@@ -14,8 +14,7 @@ class EventRecorderTest extends TestCase
 {
     public function testInterface()
     {
-        $recorder = new class($this) implements ContainsRecordedEvents
-        {
+        $recorder = new class($this) implements ContainsRecordedEvents {
             use EventRecorder;
 
             private $tester;
