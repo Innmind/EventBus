@@ -49,7 +49,7 @@ class DequeueTest extends TestCase
             ->expects($this->exactly(2))
             ->method('__invoke')
             ->withConsecutive(
-                [$this->callback(function($event) use ($queue): bool {
+                [$this->callback(static function($event) use ($queue): bool {
                     $queue->enqueue($event);
 
                     return true;

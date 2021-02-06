@@ -19,7 +19,7 @@ function bootstrap(ClassName\Extractor $extractor = null): array
     $queue = new Queue;
 
     return [
-        'bus' => static function (Map $listeners) use ($extractor): EventBus {
+        'bus' => static function(Map $listeners) use ($extractor): EventBus {
             return new EventBus\Map($listeners, $extractor);
         },
         'enqueue' => new EventBus\Enqueue($queue),

@@ -31,8 +31,9 @@ class MapTest extends TestCase
 
     public function testDispatch()
     {
-        $event = new class{};
-        $eventClass = get_class($event);
+        $event = new class {
+        };
+        $eventClass = \get_class($event);
         $count = 0;
         $listener = new class($count) {
             private $count;
@@ -42,7 +43,8 @@ class MapTest extends TestCase
                 $this->count = &$count;
             }
 
-            public function __invoke($event) {
+            public function __invoke($event)
+            {
                 ++$this->count;
             }
         };
@@ -57,8 +59,9 @@ class MapTest extends TestCase
 
     public function testDoesntEnqueueNestedDispatchedEvents()
     {
-        $event = new class{};
-        $eventClass = get_class($event);
+        $event = new class {
+        };
+        $eventClass = \get_class($event);
         $count = 0;
         $redispatch = new class($count, $this) {
             private $count;
@@ -70,7 +73,8 @@ class MapTest extends TestCase
                 $this->tester = $tester;
             }
 
-            public function __invoke($event) {
+            public function __invoke($event)
+            {
                 ++$this->count;
                 ($this->tester->dispatch)(new \stdClass);
                 $this->tester->assertSame(2, $this->count);
@@ -86,7 +90,8 @@ class MapTest extends TestCase
                 $this->tester = $tester;
             }
 
-            public function __invoke($event) {
+            public function __invoke($event)
+            {
                 $this->tester->assertSame(1, $this->count);
                 ++$this->count;
             }
@@ -99,12 +104,13 @@ class MapTest extends TestCase
 
         $this->assertNull(($this->dispatch)($event));
         $this->assertSame(2, $count);
-        unset($this->dispatch);
+        $this->dispatch = null;
     }
 
     public function testDispatchWhenListeningToParentClass()
     {
-        $event = new class extends \stdClass{};
+        $event = new class extends \stdClass {
+        };
         $count = 0;
         $listener = new class($count) {
             private $count;
@@ -114,7 +120,8 @@ class MapTest extends TestCase
                 $this->count = &$count;
             }
 
-            public function __invoke($event) {
+            public function __invoke($event)
+            {
                 ++$this->count;
             }
         };
@@ -129,9 +136,10 @@ class MapTest extends TestCase
 
     public function testDispatchWhenListeningToInterface()
     {
-        $event = new class implements \IteratorAggregate
-        {
-            public function getIterator() {}
+        $event = new class implements \IteratorAggregate {
+            public function getIterator()
+            {
+            }
         };
         $count = 0;
         $listener = new class($count) {
@@ -142,7 +150,8 @@ class MapTest extends TestCase
                 $this->count = &$count;
             }
 
-            public function __invoke($event) {
+            public function __invoke($event)
+            {
                 ++$this->count;
             }
         };
